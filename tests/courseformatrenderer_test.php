@@ -17,7 +17,7 @@
 /**
  * Collapsed Topics course format.
  *
- * @package    format_topcoll
+ * @package    format_mytopcoll
  * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2015-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
@@ -28,9 +28,9 @@ defined('MOODLE_INTERNAL') || die();
 
 /**
  * Renderer unit tests for the Collapsed Topics course format.
- * @group format_topcoll
+ * @group format_mytopcoll
  */
-class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
+class format_mytopcoll_courseformatrenderer_testcase extends advanced_testcase {
 
     protected $outputus;
     protected $course;
@@ -87,13 +87,13 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
 
         set_config('theme', 'boost');
         global $DB, $PAGE;
-        $this->outputus = $PAGE->get_renderer('format_topcoll');
+        $this->outputus = $PAGE->get_renderer('format_mytopcoll');
         // Ref: https://docs.moodle.org/dev/Writing_PHPUnit_tests.
         $nosections = (empty($numsections)) ? true : false;
         if ($nosections) {
             $numsections = 1;
         }
-        $this->course = $this->getDataGenerator()->create_course(array('format' => 'topcoll', 'numsections' => $numsections),
+        $this->course = $this->getDataGenerator()->create_course(array('format' => 'mytopcoll', 'numsections' => $numsections),
             array('createsections' => true));
 
         // Make sure all sections are created.
@@ -430,11 +430,11 @@ class format_topcoll_courseformatrenderer_testcase extends advanced_testcase {
 
         $this->init();
         $theclass = self::call_method($this->outputus, 'display_instructions', array());
-        $thevalue = '<li class="tcsection main clearfix" id="topcoll-display-instructions"><div class="left side">';
+        $thevalue = '<li class="tcsection main clearfix" id="mytopcoll-display-instructions"><div class="left side">';
         $thevalue .= '<img class="icon spacer" width="1" height="1" alt="" '.$ariahidden.'src="';
         $thevalue .= $CFG->wwwroot.'/theme/image.php/_s/boost/core/1/spacer" /></div>';
         $thevalue .= '<div class="content">';
-        $thevalue .= '<div class="sectionbody"><p class="topcoll-display-instructions">Instructions: Clicking on the section ';
+        $thevalue .= '<div class="sectionbody"><p class="mytopcoll-display-instructions">Instructions: Clicking on the section ';
         $thevalue .= 'name will show / hide the section.</p></div></div>';
         $thevalue .= '<div class="right side">';
         $thevalue .= '<img class="icon spacer" width="1" height="1" alt="" '.$ariahidden.'src="';

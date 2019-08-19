@@ -22,7 +22,7 @@
  * Toggles are persistent on a per browser session per course basis but can be made to persist longer by a small
  * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.txt' file.
  *
- * @package    format_topcoll
+ * @package    format_mytopcoll
  * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2018-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
@@ -33,7 +33,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-class format_topcoll_course_renderer extends \core_course_renderer {
+class format_mytopcoll_course_renderer extends \core_course_renderer {
 
     /**
      * Renders html to display a name with the link to the course module on a course page
@@ -59,7 +59,7 @@ class format_topcoll_course_renderer extends \core_course_renderer {
 
         /* Render element that allows to edit activity name inline. It calls {@link course_section_cm_name_title()}
            to get the display title of the activity. */
-        $tmpl = new \format_topcoll\output\course_module_name($mod, $this->page->user_is_editing(), $displayoptions);
+        $tmpl = new \format_mytopcoll\output\course_module_name($mod, $this->page->user_is_editing(), $displayoptions);
         return $this->output->render_from_template('core/inplace_editable', $tmpl->export_for_template($this->output)) .
             $groupinglabel;
     }

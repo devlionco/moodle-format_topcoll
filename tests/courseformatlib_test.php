@@ -17,7 +17,7 @@
 /**
  * Collapsed Topics course format.
  *
- * @package    format_topcoll
+ * @package    format_mytopcoll
  * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2017-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
@@ -28,9 +28,9 @@ defined('MOODLE_INTERNAL') || die();
 
 /**
  * Library unit tests for the Collapsed Topics course format.
- * @group format_topcoll
+ * @group format_mytopcoll
  */
-class format_topcoll_courseformatlib_testcase extends advanced_testcase {
+class format_mytopcoll_courseformatlib_testcase extends advanced_testcase {
 
     protected $course;
     protected $courseformat;
@@ -41,7 +41,7 @@ class format_topcoll_courseformatlib_testcase extends advanced_testcase {
         set_config('theme', 'boost');
         // Ref: https://docs.moodle.org/dev/Writing_PHPUnit_tests.
         $this->course = $this->getDataGenerator()->create_course(array(
-            'format' => 'topcoll',
+            'format' => 'mytopcoll',
             'numsections' => 1,
             'toggleforegroundopacity' => '0.1',
             'toggleforegroundhoveropacity' => '0.2',
@@ -56,21 +56,21 @@ class format_topcoll_courseformatlib_testcase extends advanced_testcase {
     public function test_set_up() {
         $this->setAdminUser();
         // Check that the defaults have the correct starting values.
-        $this->assertEquals('1.0', get_config('format_topcoll', 'defaulttgfgopacity'));
-        $this->assertEquals('1.0', get_config('format_topcoll', 'defaulttgfghvropacity'));
-        $this->assertEquals('1.0', get_config('format_topcoll', 'defaulttgbgopacity'));
-        $this->assertEquals('1.0', get_config('format_topcoll', 'defaulttgbghvropacity'));
+        $this->assertEquals('1.0', get_config('format_mytopcoll', 'defaulttgfgopacity'));
+        $this->assertEquals('1.0', get_config('format_mytopcoll', 'defaulttgfghvropacity'));
+        $this->assertEquals('1.0', get_config('format_mytopcoll', 'defaulttgbgopacity'));
+        $this->assertEquals('1.0', get_config('format_mytopcoll', 'defaulttgbghvropacity'));
 
-        set_config('defaulttgfgopacity', '0.5', 'format_topcoll');
-        set_config('defaulttgfghvropacity', '0.6', 'format_topcoll');
-        set_config('defaulttgbgopacity', '0.7', 'format_topcoll');
-        set_config('defaulttgbghvropacity', '0.8', 'format_topcoll');
+        set_config('defaulttgfgopacity', '0.5', 'format_mytopcoll');
+        set_config('defaulttgfghvropacity', '0.6', 'format_mytopcoll');
+        set_config('defaulttgbgopacity', '0.7', 'format_mytopcoll');
+        set_config('defaulttgbghvropacity', '0.8', 'format_mytopcoll');
 
         // Check that the defaults now have the new values.
-        $this->assertEquals('0.5', get_config('format_topcoll', 'defaulttgfgopacity'));
-        $this->assertEquals('0.6', get_config('format_topcoll', 'defaulttgfghvropacity'));
-        $this->assertEquals('0.7', get_config('format_topcoll', 'defaulttgbgopacity'));
-        $this->assertEquals('0.8', get_config('format_topcoll', 'defaulttgbghvropacity'));
+        $this->assertEquals('0.5', get_config('format_mytopcoll', 'defaulttgfgopacity'));
+        $this->assertEquals('0.6', get_config('format_mytopcoll', 'defaulttgfghvropacity'));
+        $this->assertEquals('0.7', get_config('format_mytopcoll', 'defaulttgbgopacity'));
+        $this->assertEquals('0.8', get_config('format_mytopcoll', 'defaulttgbghvropacity'));
 
         $thesettings = $this->courseformat->get_settings();
 
@@ -89,10 +89,10 @@ class format_topcoll_courseformatlib_testcase extends advanced_testcase {
         $roleids = $DB->get_records_menu('role', null, '', 'shortname, id');
         $this->getDataGenerator()->enrol_user($teacher->id, $this->course->id, $roleids['editingteacher']);
 
-        set_config('defaulttgfgopacity', '0.5', 'format_topcoll');
-        set_config('defaulttgfghvropacity', '0.6', 'format_topcoll');
-        set_config('defaulttgbgopacity', '0.7', 'format_topcoll');
-        set_config('defaulttgbghvropacity', '0.8', 'format_topcoll');
+        set_config('defaulttgfgopacity', '0.5', 'format_mytopcoll');
+        set_config('defaulttgfghvropacity', '0.6', 'format_mytopcoll');
+        set_config('defaulttgbgopacity', '0.7', 'format_mytopcoll');
+        set_config('defaulttgbghvropacity', '0.8', 'format_mytopcoll');
 
         $testdata = new stdClass;
         $testdata->resetcolour = true;
@@ -109,10 +109,10 @@ class format_topcoll_courseformatlib_testcase extends advanced_testcase {
     public function test_reset_all_opacity() {
         $this->setAdminUser();
 
-        set_config('defaulttgfgopacity', '0.5', 'format_topcoll');
-        set_config('defaulttgfghvropacity', '0.6', 'format_topcoll');
-        set_config('defaulttgbgopacity', '0.7', 'format_topcoll');
-        set_config('defaulttgbghvropacity', '0.8', 'format_topcoll');
+        set_config('defaulttgfgopacity', '0.5', 'format_mytopcoll');
+        set_config('defaulttgfghvropacity', '0.6', 'format_mytopcoll');
+        set_config('defaulttgbgopacity', '0.7', 'format_mytopcoll');
+        set_config('defaulttgbghvropacity', '0.8', 'format_mytopcoll');
 
         $testdata = new stdClass;
         $testdata->resetallcolour = true;

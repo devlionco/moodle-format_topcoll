@@ -22,7 +22,7 @@
  * Toggles are persistent on a per browser session per course basis but can be made to persist longer by a small
  * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.md' file.
  *
- * @package    format_topcoll
+ * @package    format_mytopcoll
  * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
@@ -34,7 +34,7 @@
 // English American Translation of Collapsed Topics Course Format.
 
 // Used in format.php.
-$string['topcollsidewidthlang'] = 'en_us-28px';
+$string['mytopcollsidewidthlang'] = 'en_us-28px';
 
 // Colour enhancement - Moodle Tracker CONTRIB-3529.
 $string['setcolour'] = 'Color';
@@ -65,5 +65,5 @@ $string['defaulttgbghvrcolour'] = 'Toggle background hover color';
 $string['defaulttgbghvrcolour_desc'] = "Toggle background hover color in hexidecimal RGB.";
 
 // Capabilities.
-$string['topcoll:changecolour'] = 'Change or reset the color';
+$string['mytopcoll:changecolour'] = 'Change or reset the color';
 

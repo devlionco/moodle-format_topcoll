@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Privacy Subsystem implementation for format_topcoll.
+ * Privacy Subsystem implementation for format_mytopcoll.
  *
- * @package    format_topcoll
+ * @package    format_mytopcoll
  * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2018-onwards G J Barnard based upon work done by Andrew Nicols <andrew@nicols.co.uk>.
  * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
@@ -25,7 +25,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  */
 
-namespace format_topcoll\privacy;
+namespace format_mytopcoll\privacy;
 
 use \core_privacy\local\request\writer;
 use \core_privacy\local\metadata\collection;
@@ -50,7 +50,7 @@ class provider implements
      * @return  collection A listing of user data stored through this system.
      */
     public static function get_metadata(collection $items) : collection {
-        $items->add_user_preference(\format_topcoll\toolbox::TOPCOLL_TOGGLE, 'privacy:metadata:preference:toggle');
+        $items->add_user_preference(\format_mytopcoll\toolbox::TOPCOLL_TOGGLE, 'privacy:metadata:preference:toggle');
 
         return $items;
     }
@@ -62,17 +62,17 @@ class provider implements
      */
     public static function export_user_preferences(int $userid) {
         $preferences = get_user_preferences(null, null, $userid);
-        $togglelib = new \format_topcoll\togglelib;
+        $togglelib = new \format_mytopcoll\togglelib;
         foreach ($preferences as $name => $value) {
             $courseid = null;
-            if (strpos($name, \format_topcoll\toolbox::TOPCOLL_TOGGLE) === 0) {
-                $courseid = substr($name, strlen(\format_topcoll\toolbox::TOPCOLL_TOGGLE) + 1);
+            if (strpos($name, \format_mytopcoll\toolbox::TOPCOLL_TOGGLE) === 0) {
+                $courseid = substr($name, strlen(\format_mytopcoll\toolbox::TOPCOLL_TOGGLE) + 1);
 
                 writer::export_user_preference(
-                    'format_topcoll',
+                    'format_mytopcoll',
                     $name,
                     $value,
-                    get_string('privacy:request:preference:toggle', 'format_topcoll', (object) [
+                    get_string('privacy:request:preference:toggle', 'format_mytopcoll', (object) [
                         'name' => $courseid,
                         'value' => $value,
                         'decoded' => $togglelib->decode_toggle_state($value),

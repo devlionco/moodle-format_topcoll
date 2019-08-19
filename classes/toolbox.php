@@ -22,7 +22,7 @@
  * Toggles are persistent on a per browser session per course basis but can be made to persist longer by a small
  * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.txt' file.
  *
- * @package    format_topcoll
+ * @package    format_mytopcoll
  * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2017-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
@@ -31,7 +31,7 @@
  *
  */
 
-namespace format_topcoll;
+namespace format_mytopcoll;
 
 defined('MOODLE_INTERNAL') || die;
 
@@ -39,7 +39,7 @@ class toolbox {
 
     protected static $instance;
 
-    const TOPCOLL_TOGGLE = 'topcoll_toggle';
+    const TOPCOLL_TOGGLE = 'mytopcoll_toggle';
 
     private function __construct() {
     }

@@ -22,7 +22,7 @@
  * Toggles are persistent on a per browser session per course basis but can be made to persist longer by a small
  * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.txt' file.
  *
- * @package    format_topcoll
+ * @package    format_mytopcoll
  * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2012-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
@@ -31,13 +31,13 @@
  *
  */
 defined('MOODLE_INTERNAL') || die();
-require_once($CFG->dirroot . '/course/format/topcoll/lib.php');
+require_once($CFG->dirroot . '/course/format/mytopcoll/lib.php');
 
 /**
  * Restore plugin class that provides the necessary information
- * needed to restore one topcoll course format.
+ * needed to restore one mytopcoll course format.
  */
-class restore_format_topcoll_plugin extends restore_format_plugin {
+class restore_format_mytopcoll_plugin extends restore_format_plugin {
 
     /** @var int */
     protected $originalnumsections = 0;
@@ -82,9 +82,9 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
         $paths = array();
 
         // Add own format stuff.
-        $elename = 'topcoll'; // This defines the postfix of 'process_*' below.
-        $elepath = $this->get_pathfor('/'); // This is defines the nested tag within 'plugin_format_topcoll_course' to allow
-                                            // '/course/plugin_format_topcoll_course' in the path therefore as a path structure
+        $elename = 'mytopcoll'; // This defines the postfix of 'process_*' below.
+        $elepath = $this->get_pathfor('/'); // This is defines the nested tag within 'plugin_format_mytopcoll_course' to allow
+                                            // '/course/plugin_format_mytopcoll_course' in the path therefore as a path structure
                                             // representing the levels in course.xml in the backup file.
         $paths[] = new restore_path_element($elename, $elepath);
 
@@ -92,18 +92,18 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
     }
 
     /**
-     * Process the 'plugin_format_topcoll_course' element within the 'course' element in the 'course.xml' file in the
+     * Process the 'plugin_format_mytopcoll_course' element within the 'course' element in the 'course.xml' file in the
      * '/course' folder of the zipped backup 'mbz' file.
      */
-    public function process_topcoll($data) {
+    public function process_mytopcoll($data) {
         global $DB;
 
         $data = (object) $data;
 
         /* We only process this information if the course we are restoring to
-           has 'topcoll' format (target format can change depending of restore options). */
+           has 'mytopcoll' format (target format can change depending of restore options). */
         $format = $DB->get_field('course', 'format', array('id' => $this->task->get_courseid()));
-        if ($format != 'topcoll') {
+        if ($format != 'mytopcoll') {
             return;
         }
 
@@ -116,10 +116,10 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
 
         if (empty($data->layoutcolumns)) {
             // Cope with backups from Moodle 2.0, 2.1 and 2.2 versions.
-            $data->layoutcolumns = get_config('format_topcoll', 'defaultlayoutcolumns');
+            $data->layoutcolumns = get_config('format_mytopcoll', 'defaultlayoutcolumns');
         }
 
-        $courseformat->restore_topcoll_setting(
+        $courseformat->restore_mytopcoll_setting(
             $data->courseid,
             $data->layoutelement,
             $data->layoutstructure,
@@ -148,7 +148,7 @@ class restore_format_topcoll_plugin extends restore_format_plugin {
 
         $data = $this->connectionpoint->get_data();
         $backupinfo = $this->step->get_task()->get_info();
-        if ($backupinfo->original_course_format !== 'topcoll') {
+        if ($backupinfo->original_course_format !== 'mytopcoll') {
             // Backup from another course format.
             return;
         }

@@ -22,7 +22,7 @@
  * Toggles are persistent on a per browser session per course basis but can be made to persist longer by a small
  * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.txt' file.
  *
- * @package    format_topcoll
+ * @package    format_mytopcoll
  * @category   event
  * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2017-onwards G J Barnard based upon work done by Marina Glancy.
@@ -39,7 +39,7 @@ $observers = array(
 
     array(
         'eventname'   => '\core\event\course_content_deleted',
-        'callback'    => 'format_topcoll_observer::course_content_deleted',
+        'callback'    => 'format_mytopcoll_observer::course_content_deleted',
     ),
 
 );

@@ -22,7 +22,7 @@
  * Toggles are persistent on a per browser session per course basis but can be made to persist longer by a small
  * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.md' file.
  *
- * @package    format_topcoll
+ * @package    format_mytopcoll
  * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
@@ -34,15 +34,15 @@
 // English Pirate Translation of Collapsed Topics Course Format.
 
 // Used in format.php.
-$string['topcollsidewidthlang'] = 'en_ar-40px';
+$string['mytopcollsidewidthlang'] = 'en_ar-40px';
 
 // These are 'topic' as they are only shown in 'topic' based structures.
 $string['markedthissection'] = 'Thy topic is illuminated as thee current topic';
 $string['markthissection'] = 'Illuminate thy topic as thee current topic';
 
 // Toggle all - Moodle Tracker CONTRIB-3190.
-$string['topcollopened'] = 'Untie';
-$string['topcollclosed'] = 'Tie';
+$string['mytopcollopened'] = 'Untie';
+$string['mytopcollclosed'] = 'Tie';
 
 // Layout enhancement - Moodle Tracker CONTRIB-3378.
 $string['formatsettings'] = 'Ye format settings'; // CONTRIB-3529.
@@ -178,7 +178,7 @@ $string['defaulttgbghvrcolour'] = 'Toggle background hover colour';
 $string['defaulttgbghvrcolour_desc'] = "Toggle background hover colour in hexidecimal RGB.";
 
 $string['defaulttogglepersistence'] = 'Toggle persistence';
-$string['defaulttogglepersistence_desc'] = "'On' or 'Off'.  You may wish to turn off for an AJAX performance increase but sailor toggle selections will not be recalled on page refresh or revisit.<br />Note: If turning persistence off remove any rows containing 'topcoll_toggle_x' in the 'name' field of the 'user_preferences' table in the database.  Where thee 'x' in 'topcoll_toggle_x' will be a course id.";
+$string['defaulttogglepersistence_desc'] = "'On' or 'Off'.  You may wish to turn off for an AJAX performance increase but sailor toggle selections will not be recalled on page refresh or revisit.<br />Note: If turning persistence off remove any rows containing 'mytopcoll_toggle_x' in the 'name' field of the 'user_preferences' table in the database.  Where thee 'x' in 'mytopcoll_toggle_x' will be a course id.";
 
 $string['defaulttogglealignment'] = 'Toggle text alignment';
 $string['defaulttogglealignment_desc'] = "'Left', 'Centre' or 'Right'.";
@@ -194,10 +194,10 @@ $string['defaultuserpreference'] = 'What to do with thee toggles when thy sailor
 $string['defaultuserpreference_desc'] = 'States what to do with thee toggles when thy sailor first accesses thee course or thee state of additional sections when they are added mee hearties.';
 
 // Capabilities.
-$string['topcoll:changelayout'] = 'Change or reset thee layout';
-$string['topcoll:changecolour'] = 'Change or reset thee colour';
-$string['topcoll:changetogglealignment'] = 'Change or reset thee toggle alignment';
-$string['topcoll:changetoggleiconset'] = 'Change or reset thee toggle icon set';
+$string['mytopcoll:changelayout'] = 'Change or reset thee layout';
+$string['mytopcoll:changecolour'] = 'Change or reset thee colour';
+$string['mytopcoll:changetogglealignment'] = 'Change or reset thee toggle alignment';
+$string['mytopcoll:changetoggleiconset'] = 'Change or reset thee toggle icon set';
 
 // Instructions.
 $string['instructions'] = 'Orders: Avast! Clicking on thee section name will show / hide thy section.  And yee betin not forgetin dat!';

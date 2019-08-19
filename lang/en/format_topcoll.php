@@ -22,7 +22,7 @@
  * Toggles are persistent on a per browser session per course basis but can be made to persist longer by a small
  * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.md' file.
  *
- * @package    format_topcoll
+ * @package    format_mytopcoll
  * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
@@ -32,17 +32,17 @@
  */
 // Used by the Moodle Core for identifing the format and displaying in the list of formats for a course in its settings.
 // Possibly legacy to be removed after Moodle 2.0 is stable.
-$string['nametopcoll'] = 'Collapsed Topics';
-$string['formattopcoll'] = 'Collapsed Topics';
+$string['namemytopcoll'] = 'Collapsed Topics';
+$string['formatmytopcoll'] = 'Collapsed Topics';
 
 // Used in format.php.
-$string['topcolltoggle'] = 'Toggle';
-$string['topcollsidewidthlang'] = 'en-28px';
+$string['mytopcolltoggle'] = 'Toggle';
+$string['mytopcollsidewidthlang'] = 'en-28px';
 
 // Toggle all - Moodle Tracker CONTRIB-3190.
-$string['topcollall'] = 'sections.';  // Leave as AMOS maintains only the latest translation - so previous versions are still supported.
-$string['topcollopened'] = 'Open all';
-$string['topcollclosed'] = 'Close all';
+$string['mytopcollall'] = 'sections.';  // Leave as AMOS maintains only the latest translation - so previous versions are still supported.
+$string['mytopcollopened'] = 'Open all';
+$string['mytopcollclosed'] = 'Close all';
 $string['settoggleallenabled'] = 'Toggle all enabled';
 $string['settoggleallenabled_help'] = 'Toggle all functionality enabled.';
 $string['defaulttoggleallenabled'] = 'Toggle all enabled';
@@ -54,8 +54,8 @@ $string['pluginname'] = 'Collapsed Topics';
 $string['section0name'] = 'General';
 
 // MDL-26105.
-$string['page-course-view-topcoll'] = 'Any course main page in the collapsed topics format';
-$string['page-course-view-topcoll-x'] = 'Any course page in the collapsed topics format';
+$string['page-course-view-mytopcoll'] = 'Any course main page in the collapsed topics format';
+$string['page-course-view-mytopcoll-x'] = 'Any course page in the collapsed topics format';
 
 $string['addsection'] = 'Add section';
 $string['hidefromothers'] = 'Hide section';
@@ -253,7 +253,7 @@ $string['defaulttoggleallhover'] = 'Toggle all icon hovers';
 $string['defaulttoggleallhover_desc'] = "'No' or 'Yes'.";
 
 $string['defaulttogglepersistence'] = 'Toggle persistence';
-$string['defaulttogglepersistence_desc'] = "'On' or 'Off'.  Turn off for an AJAX performance increase but user toggle selections will not be remembered on page refresh or revisit.<br />Note: When turning persistence off, please remove any rows containing 'topcoll_toggle_x' in the 'name' field of the 'user_preferences' table in the database.  Where the 'x' in 'topcoll_toggle_x' will be a course id.  This is to save space if you do not intend to turn it back on.";
+$string['defaulttogglepersistence_desc'] = "'On' or 'Off'.  Turn off for an AJAX performance increase but user toggle selections will not be remembered on page refresh or revisit.<br />Note: When turning persistence off, please remove any rows containing 'mytopcoll_toggle_x' in the 'name' field of the 'user_preferences' table in the database.  Where the 'x' in 'mytopcoll_toggle_x' will be a course id.  This is to save space if you do not intend to turn it back on.";
 
 $string['defaultuserpreference'] = 'Initial toggle state';
 $string['defaultuserpreference_desc'] = 'States what to do with the toggles when the user first accesses the course, the state of additional sections when they are added or toggle persistence is off.';
@@ -351,10 +351,10 @@ $string['donotshowdate'] = 'Do not show the date';
 $string['donotshowdate_help'] = 'Do not show the date when using a weekly based structure and \'Use default section name\' has been un-ticked.';
 
 // Capabilities.
-$string['topcoll:changelayout'] = 'Change or reset the layout';
-$string['topcoll:changecolour'] = 'Change or reset the colour';
-$string['topcoll:changetogglealignment'] = 'Change or reset the toggle alignment';
-$string['topcoll:changetoggleiconset'] = 'Change or reset the toggle icon set';
+$string['mytopcoll:changelayout'] = 'Change or reset the layout';
+$string['mytopcoll:changecolour'] = 'Change or reset the colour';
+$string['mytopcoll:changetogglealignment'] = 'Change or reset the toggle alignment';
+$string['mytopcoll:changetoggleiconset'] = 'Change or reset the toggle icon set';
 
 // Instructions.
 $string['instructions'] = 'Instructions: Clicking on the section name will show / hide the section.';

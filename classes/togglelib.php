@@ -22,7 +22,7 @@
  * Toggles are persistent on a per browser session per course basis but can be made to persist longer by a small
  * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.txt' file.
  *
- * @package    format_topcoll
+ * @package    format_mytopcoll
  * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2012-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - {@link http://moodle.org/user/profile.php?id=442195}
@@ -30,7 +30,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
  *
  */
-namespace format_topcoll;
+namespace format_mytopcoll;
 
 defined('MOODLE_INTERNAL') || die;
 
@@ -256,30 +256,30 @@ class togglelib {
      * @return mixed
      * @throws coding_exception
      */
-    static public function required_topcoll_param($parname) {
+    static public function required_mytopcoll_param($parname) {
         if (empty($parname)) {
-            throw new coding_exception('required_topcoll_param() requires $parname to be specified');
+            throw new coding_exception('required_mytopcoll_param() requires $parname to be specified');
         }
         $param = required_param($parname, PARAM_RAW);
 
-        return self::clean_topcoll_param($param);
+        return self::clean_mytopcoll_param($param);
     }
 
     /**
-     * Used by required_topcoll_param to clean the toggle parameter.
+     * Used by required_mytopcoll_param to clean the toggle parameter.
      *
      * @param string $param the variable we are cleaning
      * @return mixed
      * @throws coding_exception
      */
-    static public function clean_topcoll_param($param) {
+    static public function clean_mytopcoll_param($param) {
         if (is_array($param)) {
-            throw new coding_exception('clean_topcoll_param() can not process arrays.');
+            throw new coding_exception('clean_mytopcoll_param() can not process arrays.');
         } else if (is_object($param)) {
             if (method_exists($param, '__toString')) {
                 $param = $param->__toString();
             } else {
-                throw new coding_exception('clean_topcoll_param() can not process objects.');
+                throw new coding_exception('clean_mytopcoll_param() can not process objects.');
             }
         }
 

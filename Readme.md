@@ -7,9 +7,9 @@ If you find an issue with the format, please see the 'Reporting Issues' section 
 This file contains general information about the format.  If you're reading this as an educator then you can learn about the format
 from the documentation on http://docs.moodle.org/37/en/Collapsed_Topics_course_format.  If you get stuck and your Moodle support
 are unable to help / not sure what to do, then please go to https://moodle.org/mod/forum/view.php?id=47.  If you like the format,
-then please do spread the word to other educators.  The main page for the format is https://moodle.org/plugins/format_topcoll.
+then please do spread the word to other educators.  The main page for the format is https://moodle.org/plugins/format_mytopcoll.
 
-[![Build Status](https://travis-ci.org/gjb2048/moodle-format_topcoll.svg?branch=master)](https://travis-ci.org/gjb2048/moodle-format_topcoll)
+[![Build Status](https://travis-ci.org/gjb2048/moodle-format_mytopcoll.svg?branch=master)](https://travis-ci.org/gjb2048/moodle-format_mytopcoll)
 
 Required version of Moodle
 ==========================
@@ -21,12 +21,12 @@ Please ensure that your hardware and software complies with 'Requirements' in 'I
 
 Downloads and documentation
 ===========================
-The primary source for downloading this branch of the format is https://moodle.org/plugins/view.php?plugin=format_topcoll
+The primary source for downloading this branch of the format is https://moodle.org/plugins/view.php?plugin=format_mytopcoll
 with 'Select Moodle version:' set at 'Moodle 3.7'.
 
-The secondary source is a tagged version with the v3.7 prefix on https://github.com/gjb2048/moodle-format_topcoll/tags
+The secondary source is a tagged version with the v3.7 prefix on https://github.com/gjb2048/moodle-format_mytopcoll/tags
 
-If you download from the development area - https://github.com/gjb2048/moodle-format_topcoll/ - consider that
+If you download from the development area - https://github.com/gjb2048/moodle-format_mytopcoll/ - consider that
 the code is unstable and not for use in production environments.  This is because I develop the next version in stages
 and use GitHub as a means of backup.  Therefore the code is not finished, subject to alteration and requires testing.
 
@@ -48,7 +48,7 @@ FAQ - http://www.gnu.org/licenses/gpl-faq.html - is a good place to look.
 If you reuse any of the code then I kindly ask that you make reference to the format.
 
 If you make improvements or bug fixes then I would appreciate if you would send them back to me by forking from
-https://github.com/gjb2048/moodle-format_topcoll and doing a 'Pull Request' so that the rest of the
+https://github.com/gjb2048/moodle-format_mytopcoll and doing a 'Pull Request' so that the rest of the
 Moodle community benefits.
 
 Support
@@ -81,7 +81,7 @@ Installation
  4. If upgrading from Moodle 2.3, please see 'Upgrade Instructions' below.
  5. Put Moodle in 'Maintenance Mode' (docs.moodle.org/en/admin/setting/maintenancemode) so that there are no 
     users using it bar you as the administrator - if you have not already done so.
- 6. Copy 'topcoll' to '/course/format/' if you have not already done so.
+ 6. Copy 'mytopcoll' to '/course/format/' if you have not already done so.
  7. In 'Site Administration -> Plugins -> Course formats -> Collapsed Topics' change the values of 'defaultlayoutelement',
     'defaultlayoutstructure' and 'defaultlayoutcolumns' for setting the default layout, structure and columns respectively
     for new / updating courses as desired by following the instructions contained within.
@@ -102,7 +102,7 @@ Upgrade Instructions
    format relies on underlying core code that is out of my control.
 2. If upgrading from Moodle 1.9, 2.0, 2.1 or 2.2 please read the appropriate sections below.
 3. Put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the administrator.
-4. In '/course/format/' move old 'topcoll' directory to a backup folder outside of Moodle.
+4. In '/course/format/' move old 'mytopcoll' directory to a backup folder outside of Moodle.
 5. Follow installation instructions above.
 6. If automatic 'Purge all caches' appears not to work by lack of display etc. then perform a manual 'Purge all caches'
    under 'Home -> Site administration -> Development -> Purge all caches'.
@@ -113,25 +113,25 @@ Upgrading from Moodle 1.9, 2.0 or 2.1
 Moodle 2.4 requires that Moodle 2.2 is installed to upgrade from, so therefore Moodle 2.2 is an intermediate step.
 So:
 1. Put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the administrator.
-2. In '/course/format/' move old 'topcoll' directory to a backup folder outside of Moodle.
-3. Do not copy in the new version of 'topcoll' yet!  As this will cause the upgrade to fail.
+2. In '/course/format/' move old 'mytopcoll' directory to a backup folder outside of Moodle.
+3. Do not copy in the new version of 'mytopcoll' yet!  As this will cause the upgrade to fail.
 4. Upgrade to Moodle 2.2 first - http://docs.moodle.org/22/en/Upgrading_to_Moodle_2.2.
-5. After you have installed Moodle 2.2, now upgrade to Moodle 2.4 with this new topcoll -
+5. After you have installed Moodle 2.2, now upgrade to Moodle 2.4 with this new mytopcoll -
    http://docs.moodle.org/24/en/Upgrading_to_Moodle_2.4 - but before initiating the upgrade you can copy the
-   new (i.e. this) 'topcoll' folder to '/course/format'.
+   new (i.e. this) 'mytopcoll' folder to '/course/format'.
 6. Now follow 'Upgrading from Moodle 2.2' below please.
-INFO: Having no 'topcoll' folder in '/course/format' is fine as the courses that use it are not accessed and
+INFO: Having no 'mytopcoll' folder in '/course/format' is fine as the courses that use it are not accessed and
       both the old and new versions will confuse an intermediate 2.2 version and cause it's installation to fail.
 
 Upgrading from Moodle 2.2
 -------------------------
 1.    Put Moodle in 'Maintenance Mode' so that there are no users using it bar you as the administrator - if you have
       not already done so.
-2.    In '/course/format/' move old 'topcoll' directory to a backup folder outside of Moodle - if you have not
+2.    In '/course/format/' move old 'mytopcoll' directory to a backup folder outside of Moodle - if you have not
       already done so.
-3.    Copy this new 'topcoll' folder to '/course/format/'.
+3.    Copy this new 'mytopcoll' folder to '/course/format/'.
 4.    Upgrade to Moodle 2.4 by being logged in as 'admin' and clicking on 'Home'.  If you have previously upgraded but
-      'topcoll' was an old version and the upgrade failed, this should still work.
+      'mytopcoll' was an old version and the upgrade failed, this should still work.
 5.    Follow installation instructions above.
 6.    Put Moodle out of Maintenance Mode.
 NOTE: If the automated upgrade fails for which can be seen by getting errors when using a Collapsed Topics course,
@@ -144,9 +144,9 @@ NOTE: If the automated upgrade fails for which can be seen by getting errors whe
       The table prefix i.e, 'mdl_' is not stated in the instructions but ensure you know what yours is and use
       it with the table names.
 1.    In your database:
-2.1   Rename the table 'format_topcoll_layout' to 'format_topcoll_settings'.
-2.2   With the table 'format_topcoll_settings' change all integer types to signed if using a MySQL database.
-2.3   If the table 'format_topcoll_settings' does not exist, then create it and add the following fields 
+2.1   Rename the table 'format_mytopcoll_layout' to 'format_mytopcoll_settings'.
+2.2   With the table 'format_mytopcoll_settings' change all integer types to signed if using a MySQL database.
+2.3   If the table 'format_mytopcoll_settings' does not exist, then create it and add the following fields 
       in this order:
 2.3.1 'id' of type 'BIGINT(10)' type, not null, auto increment, no zero fill with a null default value - the same 
        as any other 'id' field in the other tables.  Make it the primary key.
@@ -156,14 +156,14 @@ NOTE: If the automated upgrade fails for which can be seen by getting errors whe
       of '1'.
 2.3.4 'layoutstructure' of type 'TINYINT(1)' type, not null, no auto increment, no zero fill with a default value
       of '1'.
-2.4   With the table 'format_topcoll_settings' append three new fields of 'VARCHAR(6)' type, not null, called
+2.4   With the table 'format_mytopcoll_settings' append three new fields of 'VARCHAR(6)' type, not null, called
       'tgfgcolour', 'tgbgcolour' and 'tgbghvrcolour' in that order with the default values of '000000', 'e2e2f2'
       and 'eeeeff' respectively.
-2.5   With the table 'format_topcoll_settings' append a new field 'layoutcolumns' after the 'layoutstructure' field
+2.5   With the table 'format_mytopcoll_settings' append a new field 'layoutcolumns' after the 'layoutstructure' field
       and with identical size, type and attributes.  The default is '1'. i.e:
 2.5.1 'layoutcolumns' of type 'TINYINT(1)' type, not null, no auto increment, no zero fill with a default value
       of '1'.
-2.6   Drop the table 'format_topcoll_cookie_cnsnt'.
+2.6   Drop the table 'format_mytopcoll_cookie_cnsnt'.
 
 Uninstallation
 ==============
@@ -171,10 +171,10 @@ Uninstallation
 2. It is recommended but not essential to change all of the courses that use the format to another.  If this is
    not done Moodle will pick the last format in your list of formats to use but display in 'Edit settings' of the
    course the first format in the list.  You can then set the desired format.
-3. In '/course/format/' remove the folder 'topcoll'.
-4. In the database, remove the table 'format_topcoll_settings' along with the entry for 'format_topcoll'
+3. In '/course/format/' remove the folder 'mytopcoll'.
+4. In the database, remove the table 'format_mytopcoll_settings' along with the entry for 'format_mytopcoll'
    ('plugin' attribute) in the table 'config_plugins'.  If using the default prefix this will be
-   'mdl_format_topcoll_settings' and 'mdl_config_plugins' respectively.
+   'mdl_format_mytopcoll_settings' and 'mdl_config_plugins' respectively.
 5. Put Moodle out of Maintenance Mode.
 
 Course Backup and Restore Instructions
@@ -204,11 +204,11 @@ the 'background' attribute with a 'toggle-...' type class within them.  There ar
 the 'toggle all' functionality.  For example:
 
     body.jsenabled .course-content ul.ctopics li.section .content .toggle-arrow span.toggle_closed {
-        background-image: url([[pix:format_topcoll|arrow_right]]);
+        background-image: url([[pix:format_mytopcoll|arrow_right]]);
     }
 
     #toggle-all .content .toggle-arrow h4 span.off {
-        background-image: url([[pix:format_topcoll|arrow_down]]); 
+        background-image: url([[pix:format_mytopcoll|arrow_down]]); 
     }
 
 If you would like your own icon set, either replace the icons in the 'pix' folder, deduce how the code works or better
@@ -224,19 +224,19 @@ Known Issues
     a workaround, please select the 'Topics' format first in 1.9, backup and restore then select the Collapsed Topics
     course format in the course settings.  You will have to reset your decisions on structure etc.
 3.  Sometimes when restoring a course, it is accessed for the first time and a toggle is clicked a 'Error updating user
-    preference 'topcoll_toggle_x'' (where 'x' is the course id as shown in the URL 'id=x') can occur.  I'm not completely sure
+    preference 'mytopcoll_toggle_x'' (where 'x' is the course id as shown in the URL 'id=x') can occur.  I'm not completely sure
     why this is happening as the 'user_preference_allow_ajax_update' call in 'format.php' should establish that the user
     preference can be set.  Could be a page cache thing as the 'init' code is getting the course id unlike an issue I'm
     currently experiencing with the MyMobile theme - MDL-33115.  The work around is to refresh the page.  Having altered some
     of the event handing code to operate after page load, I'm hoping that this has now been resolved, please let me know
     if you encounter it.
-4.  If you get HTTP 403 errors on the browsers console for the 'settopcollpref.php' then check that the permissions within the
-    'topcoll' folder are 755 for folders and 644 for files.  Ref: https://moodle.org/mod/forum/discuss.php?d=329620.
+4.  If you get HTTP 403 errors on the browsers console for the 'setmytopcollpref.php' then check that the permissions within the
+    'mytopcoll' folder are 755 for folders and 644 for files.  Ref: https://moodle.org/mod/forum/discuss.php?d=329620.
 
 Reporting Issues
 ================
 Before reporting an issue, please ensure that you are running the latest version for your release of Moodle.  The primary
-release area is located on https://moodle.org/plugins/view.php?plugin=format_topcoll.  It is also essential that you are
+release area is located on https://moodle.org/plugins/view.php?plugin=format_mytopcoll.  It is also essential that you are
 operating the required version of Moodle as stated at the top - this is because the format relies on core functionality that
 is out of its control.
 

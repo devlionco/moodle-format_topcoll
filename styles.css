@@ -6,7 +6,7 @@
  * Toggles are persistent on a per browser session per course basis but can be made to persist longer by a small
  * code change. Full installation instructions, code adaptions and credits are included in the 'Readme.txt' file.
  *
- * @package    format_topcoll
+ * @package    format_mytopcoll
  * @version    See the value of '$plugin->version' in version.php.
  * @copyright  &copy; 2009-onwards G J Barnard in respect to modifications of standard topics format.
  * @author     G J Barnard - gjbarnard at gmail dot com and {@link http://moodle.org/user/profile.php?id=442195}
@@ -52,7 +52,7 @@
 }
 .course-content ul.ctopics li.section.main,
 .course-content ul.ctopics li.tcsection,
-.format-topcoll .course-content .single-section .section-navigation {
+.format-mytopcoll .course-content .single-section .section-navigation {
     position: relative;
 }
 
@@ -75,7 +75,7 @@
 
 .course-content ul.ctopics li.section.main .content,
 .course-content ul.ctopics li.tcsection .content {
-    /* Default for non tablets / mobiles.  If the language file has 'topcollsidewidth' for the current language, then will be set in format.php. */
+    /* Default for non tablets / mobiles.  If the language file has 'mytopcollsidewidth' for the current language, then will be set in format.php. */
     margin: 0 40px;
     padding: 0;
 }
@@ -162,22 +162,22 @@
 .course-content ul.ctopics li.section .content .toggle-arrow span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-arrow span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-arrow h4 span.off {
-    background-image: url([[pix:format_topcoll|arrow_down]]);
+    background-image: url([[pix:format_mytopcoll|arrow_down]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-arrow span.toggle_closed, /* JavaScript enabled */
 #toggle-all .content .toggle-arrow h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="arrow"],
+body#page-admin-setting-formatsettingmytopcoll select#id_s_format_mytopcoll_defaulttoggleiconset option[value="arrow"],
 body#page-course-edit select#id_toggleiconset option[value="arrow"] {
-    background-image: url([[pix:format_topcoll|arrow_right]]);
+    background-image: url([[pix:format_mytopcoll|arrow_right]]);
 }
 
 #toggle-all .content .toggle-arrow-hover h4 span.off:hover {
-    background-image: url([[pix:format_topcoll|arrow_right_glow]]);
+    background-image: url([[pix:format_mytopcoll|arrow_right_glow]]);
 }
 
 #toggle-all .content .toggle-arrow-hover h4 span.on:hover {
-    background-image: url([[pix:format_topcoll|arrow_down_glow]]);
+    background-image: url([[pix:format_mytopcoll|arrow_down_glow]]);
 }
 
 /* Bulb icon set. */
@@ -185,22 +185,22 @@ body#page-course-edit select#id_toggleiconset option[value="arrow"] {
 .course-content ul.ctopics li.section .content .toggle-bulb span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-bulb span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-bulb h4 span.off {
-    background-image: url([[pix:format_topcoll|bulb_on]]);
+    background-image: url([[pix:format_mytopcoll|bulb_on]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-bulb span.toggle_closed, /* JavaScript enabled */
 #toggle-all .content .toggle-bulb h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="bulb"],
+body#page-admin-setting-formatsettingmytopcoll select#id_s_format_mytopcoll_defaulttoggleiconset option[value="bulb"],
 body#page-course-edit select#id_toggleiconset option[value="bulb"] {
-    background-image: url([[pix:format_topcoll|bulb_off]]);
+    background-image: url([[pix:format_mytopcoll|bulb_off]]);
 }
 
 #toggle-all .content .toggle-bulb-hover h4 span.off:hover {
-    background-image: url([[pix:format_topcoll|bulb_off_glow]]);
+    background-image: url([[pix:format_mytopcoll|bulb_off_glow]]);
 }
 
 #toggle-all .content .toggle-bulb-hover h4 span.on:hover {
-    background-image: url([[pix:format_topcoll|bulb_on_glow]]);
+    background-image: url([[pix:format_mytopcoll|bulb_on_glow]]);
 }
 
 /* Cloud icon set. */
@@ -208,22 +208,22 @@ body#page-course-edit select#id_toggleiconset option[value="bulb"] {
 .course-content ul.ctopics li.section .content .toggle-cloud span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-cloud span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-cloud h4 span.off {
-    background-image: url([[pix:format_topcoll|cloud_on]]);
+    background-image: url([[pix:format_mytopcoll|cloud_on]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-cloud span.toggle_closed, /* JavaScript enabled */
 #toggle-all .content .toggle-cloud h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="cloud"],
+body#page-admin-setting-formatsettingmytopcoll select#id_s_format_mytopcoll_defaulttoggleiconset option[value="cloud"],
 body#page-course-edit select#id_toggleiconset option[value="cloud"] {
-    background-image: url([[pix:format_topcoll|cloud_off]]);
+    background-image: url([[pix:format_mytopcoll|cloud_off]]);
 }
 
 #toggle-all .content .toggle-cloud-hover h4 span.off:hover {
-    background-image: url([[pix:format_topcoll|cloud_off_glow]]);
+    background-image: url([[pix:format_mytopcoll|cloud_off_glow]]);
 }
 
 #toggle-all .content .toggle-cloud-hover h4 span.on:hover {
-    background-image: url([[pix:format_topcoll|cloud_on_glow]]);
+    background-image: url([[pix:format_mytopcoll|cloud_on_glow]]);
 }
 
 /* Eye icon set. */
@@ -231,22 +231,22 @@ body#page-course-edit select#id_toggleiconset option[value="cloud"] {
 .course-content ul.ctopics li.section .content .toggle-eye span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-eye span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-eye h4 span.off {
-    background-image: url([[pix:format_topcoll|eye_show]]);
+    background-image: url([[pix:format_mytopcoll|eye_show]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-eye span.toggle_closed, /* JavaScript enabled */
 #toggle-all .content .toggle-eye h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="eye"],
+body#page-admin-setting-formatsettingmytopcoll select#id_s_format_mytopcoll_defaulttoggleiconset option[value="eye"],
 body#page-course-edit select#id_toggleiconset option[value="eye"] {
-    background-image: url([[pix:format_topcoll|eye_hide]]);
+    background-image: url([[pix:format_mytopcoll|eye_hide]]);
 }
 
 #toggle-all .content .toggle-eye-hover h4 span.off:hover {
-    background-image: url([[pix:format_topcoll|eye_hide_glow]]);
+    background-image: url([[pix:format_mytopcoll|eye_hide_glow]]);
 }
 
 #toggle-all .content .toggle-eye-hover h4 span.on:hover {
-    background-image: url([[pix:format_topcoll|eye_show_glow]]);
+    background-image: url([[pix:format_mytopcoll|eye_show_glow]]);
 }
 
 /* Folder icon set. */
@@ -254,22 +254,22 @@ body#page-course-edit select#id_toggleiconset option[value="eye"] {
 .course-content ul.ctopics li.section .content .toggle-folder span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-folder span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-folder h4 span.off {
-    background-image: url([[pix:format_topcoll|folder_open]]);
+    background-image: url([[pix:format_mytopcoll|folder_open]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-folder span.toggle_closed, /* JavaScript enabled */
 #toggle-all .content .toggle-folder h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="folder"],
+body#page-admin-setting-formatsettingmytopcoll select#id_s_format_mytopcoll_defaulttoggleiconset option[value="folder"],
 body#page-course-edit select#id_toggleiconset option[value="folder"] {
-    background-image: url([[pix:format_topcoll|folder_closed]]);
+    background-image: url([[pix:format_mytopcoll|folder_closed]]);
 }
 
 #toggle-all .content .toggle-folder-hover h4 span.off:hover {
-    background-image: url([[pix:format_topcoll|folder_closed_glow]]);
+    background-image: url([[pix:format_mytopcoll|folder_closed_glow]]);
 }
 
 #toggle-all .content .toggle-folder-hover h4 span.on:hover {
-    background-image: url([[pix:format_topcoll|folder_open_glow]]);
+    background-image: url([[pix:format_mytopcoll|folder_open_glow]]);
 }
 
 /* Ground signal set. */
@@ -278,15 +278,15 @@ body#page-course-edit select#id_toggleiconset option[value="folder"] {
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-groundsignal span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-groundsignal h4 span.off,
 #toggle-all .content .toggle-groundsignal-hover h4 span.on:hover {
-    background-image: url([[pix:format_topcoll|ground_signal_on]]);
+    background-image: url([[pix:format_mytopcoll|ground_signal_on]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-groundsignal span.toggle_closed, /* JavaScript enabled */
 #toggle-all .content .toggle-groundsignal-hover h4 span.off:hover,
 #toggle-all .content .toggle-groundsignal h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="groundsignal"],
+body#page-admin-setting-formatsettingmytopcoll select#id_s_format_mytopcoll_defaulttoggleiconset option[value="groundsignal"],
 body#page-course-edit select#id_toggleiconset option[value="groundsignal"] {
-    background-image: url([[pix:format_topcoll|ground_signal_off]]);
+    background-image: url([[pix:format_mytopcoll|ground_signal_off]]);
 }
 
 /* LED icon set. */
@@ -294,22 +294,22 @@ body#page-course-edit select#id_toggleiconset option[value="groundsignal"] {
 .course-content ul.ctopics li.section .content .toggle-led span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-led span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-led h4 span.off {
-    background-image: url([[pix:format_topcoll|led_on]]);
+    background-image: url([[pix:format_mytopcoll|led_on]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-led span.toggle_closed, /* JavaScript enabled */
 #toggle-all .content .toggle-led h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="led"],
+body#page-admin-setting-formatsettingmytopcoll select#id_s_format_mytopcoll_defaulttoggleiconset option[value="led"],
 body#page-course-edit select#id_toggleiconset option[value="led"] {
-    background-image: url([[pix:format_topcoll|led_off]]);
+    background-image: url([[pix:format_mytopcoll|led_off]]);
 }
 
 #toggle-all .content .toggle-led-hover h4 span.off:hover {
-    background-image: url([[pix:format_topcoll|led_off_glow]]);
+    background-image: url([[pix:format_mytopcoll|led_off_glow]]);
 }
 
 #toggle-all .content .toggle-led-hover h4 span.on:hover {
-    background-image: url([[pix:format_topcoll|led_on_glow]]);
+    background-image: url([[pix:format_mytopcoll|led_on_glow]]);
 }
 
 /* Point icon set. */
@@ -317,22 +317,22 @@ body#page-course-edit select#id_toggleiconset option[value="led"] {
 .course-content ul.ctopics li.section .content .toggle-point span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-point span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-point h4 span.off {
-    background-image: url([[pix:format_topcoll|point_down]]);
+    background-image: url([[pix:format_mytopcoll|point_down]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-point span.toggle_closed, /* JavaScript enabled */
 #toggle-all .content .toggle-point h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="point"],
+body#page-admin-setting-formatsettingmytopcoll select#id_s_format_mytopcoll_defaulttoggleiconset option[value="point"],
 body#page-course-edit select#id_toggleiconset option[value="point"] {
-    background-image: url([[pix:format_topcoll|point_right]]);
+    background-image: url([[pix:format_mytopcoll|point_right]]);
 }
 
 #toggle-all .content .toggle-point-hover h4 span.off:hover {
-    background-image: url([[pix:format_topcoll|point_right_glow]]);
+    background-image: url([[pix:format_mytopcoll|point_right_glow]]);
 }
 
 #toggle-all .content .toggle-point-hover h4 span.on:hover {
-    background-image: url([[pix:format_topcoll|point_down_glow]]);
+    background-image: url([[pix:format_mytopcoll|point_down_glow]]);
 }
 
 /* Power icon set. */
@@ -340,22 +340,22 @@ body#page-course-edit select#id_toggleiconset option[value="point"] {
 .course-content ul.ctopics li.section .content .toggle-power span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-power span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-power h4 span.off {
-    background-image: url([[pix:format_topcoll|toggle_plus]]);
+    background-image: url([[pix:format_mytopcoll|toggle_plus]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-power span.toggle_closed, /* JavaScript enabled */
 #toggle-all .content .toggle-power h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="power"],
+body#page-admin-setting-formatsettingmytopcoll select#id_s_format_mytopcoll_defaulttoggleiconset option[value="power"],
 body#page-course-edit select#id_toggleiconset option[value="power"] {
-    background-image: url([[pix:format_topcoll|toggle_minus]]);
+    background-image: url([[pix:format_mytopcoll|toggle_minus]]);
 }
 
 #toggle-all .content .toggle-power-hover h4 span.off:hover {
-    background-image: url([[pix:format_topcoll|toggle_minus_glow]]);
+    background-image: url([[pix:format_mytopcoll|toggle_minus_glow]]);
 }
 
 #toggle-all .content .toggle-power-hover h4 span.on:hover {
-    background-image: url([[pix:format_topcoll|toggle_plus_glow]]);
+    background-image: url([[pix:format_mytopcoll|toggle_plus_glow]]);
 }
 
 /* Radio icon set. */
@@ -363,22 +363,22 @@ body#page-course-edit select#id_toggleiconset option[value="power"] {
 .course-content ul.ctopics li.section .content .toggle-radio span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-radio span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-radio h4 span.off {
-    background-image: url([[pix:format_topcoll|radio_on]]);
+    background-image: url([[pix:format_mytopcoll|radio_on]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-radio span.toggle_closed, /* JavaScript enabled */
 #toggle-all .content .toggle-radio h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="radio"],
+body#page-admin-setting-formatsettingmytopcoll select#id_s_format_mytopcoll_defaulttoggleiconset option[value="radio"],
 body#page-course-edit select#id_toggleiconset option[value="radio"] {
-    background-image: url([[pix:format_topcoll|radio_off]]);
+    background-image: url([[pix:format_mytopcoll|radio_off]]);
 }
 
 #toggle-all .content .toggle-radio-hover h4 span.off:hover {
-    background-image: url([[pix:format_topcoll|radio_off_glow]]);
+    background-image: url([[pix:format_mytopcoll|radio_off_glow]]);
 }
 
 #toggle-all .content .toggle-radio-hover h4 span.on:hover {
-    background-image: url([[pix:format_topcoll|radio_on_glow]]);
+    background-image: url([[pix:format_mytopcoll|radio_on_glow]]);
 }
 
 /* Smiley icon set. */
@@ -386,22 +386,22 @@ body#page-course-edit select#id_toggleiconset option[value="radio"] {
 .course-content ul.ctopics li.section .content .toggle-smiley span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-smiley span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-smiley h4 span.off {
-    background-image: url([[pix:format_topcoll|smiley_on]]);
+    background-image: url([[pix:format_mytopcoll|smiley_on]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-smiley span.toggle_closed , /* JavaScript enabled */
 #toggle-all .content .toggle-smiley h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="smiley"],
+body#page-admin-setting-formatsettingmytopcoll select#id_s_format_mytopcoll_defaulttoggleiconset option[value="smiley"],
 body#page-course-edit select#id_toggleiconset option[value="smiley"] {
-    background-image: url([[pix:format_topcoll|smiley_off]]);
+    background-image: url([[pix:format_mytopcoll|smiley_off]]);
 }
 
 #toggle-all .content .toggle-smiley-hover h4 span.off:hover {
-    background-image: url([[pix:format_topcoll|smiley_off_glow]]);
+    background-image: url([[pix:format_mytopcoll|smiley_off_glow]]);
 }
 
 #toggle-all .content .toggle-smiley-hover h4 span.on:hover {
-    background-image: url([[pix:format_topcoll|smiley_on_glow]]);
+    background-image: url([[pix:format_mytopcoll|smiley_on_glow]]);
 }
 
 /* Square icon set. */
@@ -409,22 +409,22 @@ body#page-course-edit select#id_toggleiconset option[value="smiley"] {
 .course-content ul.ctopics li.section .content .toggle-square span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-square span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-square h4 span.off {
-    background-image: url([[pix:format_topcoll|square_on]]);
+    background-image: url([[pix:format_mytopcoll|square_on]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-square span.toggle_closed, /* JavaScript enabled */
 #toggle-all .content .toggle-square h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="square"],
+body#page-admin-setting-formatsettingmytopcoll select#id_s_format_mytopcoll_defaulttoggleiconset option[value="square"],
 body#page-course-edit select#id_toggleiconset option[value="square"] {
-    background-image: url([[pix:format_topcoll|square_off]]);
+    background-image: url([[pix:format_mytopcoll|square_off]]);
 }
 
 #toggle-all .content .toggle-square-hover h4 span.off:hover {
-    background-image: url([[pix:format_topcoll|square_off_glow]]);
+    background-image: url([[pix:format_mytopcoll|square_off_glow]]);
 }
 
 #toggle-all .content .toggle-square-hover h4 span.on:hover {
-    background-image: url([[pix:format_topcoll|square_on_glow]]);
+    background-image: url([[pix:format_mytopcoll|square_on_glow]]);
 }
 
 /* Sun / Moon icon set. */
@@ -432,22 +432,22 @@ body#page-course-edit select#id_toggleiconset option[value="square"] {
 .course-content ul.ctopics li.section .content .toggle-sunmoon span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-sunmoon span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-sunmoon h4 span.off {
-    background-image: url([[pix:format_topcoll|sunmoon_on]]);
+    background-image: url([[pix:format_mytopcoll|sunmoon_on]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-sunmoon span.toggle_closed, /* JavaScript enabled */
 #toggle-all .content .toggle-sunmoon h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="sunmoon"],
+body#page-admin-setting-formatsettingmytopcoll select#id_s_format_mytopcoll_defaulttoggleiconset option[value="sunmoon"],
 body#page-course-edit select#id_toggleiconset option[value="sunmoon"] {
-    background-image: url([[pix:format_topcoll|sunmoon_off]]);
+    background-image: url([[pix:format_mytopcoll|sunmoon_off]]);
 }
 
 #toggle-all .content .toggle-sunmoon-hover h4 span.off:hover {
-    background-image: url([[pix:format_topcoll|sunmoon_off_glow]]);
+    background-image: url([[pix:format_mytopcoll|sunmoon_off_glow]]);
 }
 
 #toggle-all .content .toggle-sunmoon-hover h4 span.on:hover {
-    background-image: url([[pix:format_topcoll|sunmoon_on_glow]]);
+    background-image: url([[pix:format_mytopcoll|sunmoon_on_glow]]);
 }
 
 /* Switch icon set. */
@@ -455,25 +455,25 @@ body#page-course-edit select#id_toggleiconset option[value="sunmoon"] {
 .course-content ul.ctopics li.section .content .toggle-switch span.toggle_open, /* JavaScript disabled */
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-switch span.toggle_open, /* JavaScript enabled */
 #toggle-all .content .toggle-switch h4 span.off {
-    background-image: url([[pix:format_topcoll|switch_on]]);
+    background-image: url([[pix:format_mytopcoll|switch_on]]);
 }
 
 body.jsenabled .course-content ul.ctopics li.section .content .toggle-switch span.toggle_closed, /* JavaScript enabled */
 #toggle-all .content .toggle-switch h4 span.on,
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option[value="switch"],
+body#page-admin-setting-formatsettingmytopcoll select#id_s_format_mytopcoll_defaulttoggleiconset option[value="switch"],
 body#page-course-edit select#id_toggleiconset option[value="switch"] {
-    background-image: url([[pix:format_topcoll|switch_off]]);
+    background-image: url([[pix:format_mytopcoll|switch_off]]);
 }
 
 #toggle-all .content .toggle-switch-hover h4 span.off:hover {
-    background-image: url([[pix:format_topcoll|switch_off_glow]]);
+    background-image: url([[pix:format_mytopcoll|switch_off_glow]]);
 }
 
 #toggle-all .content .toggle-switch-hover h4 span.on:hover {
-    background-image: url([[pix:format_topcoll|switch_on_glow]]);
+    background-image: url([[pix:format_mytopcoll|switch_on_glow]]);
 }
 
-body#page-admin-setting-formatsettingtopcoll select#id_s_format_topcoll_defaulttoggleiconset option,
+body#page-admin-setting-formatsettingmytopcoll select#id_s_format_mytopcoll_defaulttoggleiconset option,
 body#page-course-edit select#id_toggleiconset option {
     background-color: transparent;
     background-position: right center; /* Position the icon to the right of the selection text. */
@@ -481,13 +481,13 @@ body#page-course-edit select#id_toggleiconset option {
     padding: 3px 20px 3px 3px; /* The 20px allows the image to be on the right and the text next to it. */
 }
 
-body#page-admin-setting-formatsettingtopcoll.lang-en_ar select#id_s_format_topcoll_defaulttoggleiconset option,
+body#page-admin-setting-formatsettingmytopcoll.lang-en_ar select#id_s_format_mytopcoll_defaulttoggleiconset option,
 body#page-course-edit.lang-en_ar select#id_toggleiconset option {
     background-position: 220px 45%; /* Pirate strings are longer. */
 }
 
 /* Display instructions */
-.topcoll-display-instructions {
+.mytopcoll-display-instructions {
     margin: 0;
 }
 
@@ -524,19 +524,19 @@ body#page-course-edit.lang-en_ar select#id_toggleiconset option {
     top: 0;
 }
 
-.format-topcoll .course-content .single-section .section-navigation .mdl-left,
-.format-topcoll .course-content .single-section .section-navigation .mdl-right {
+.format-mytopcoll .course-content .single-section .section-navigation .mdl-left,
+.format-mytopcoll .course-content .single-section .section-navigation .mdl-right {
     float: none;
     position: absolute;
     top: 50%;
     transform: translate(0, -50%);
 }
 
-.format-topcoll .course-content .single-section .section-navigation .mdl-left {
+.format-mytopcoll .course-content .single-section .section-navigation .mdl-left {
     left: 0;
 }
 
-.format-topcoll .course-content .single-section .section-navigation .mdl-right {
+.format-mytopcoll .course-content .single-section .section-navigation .mdl-right {
     right: 0;
 }
 
@@ -558,52 +558,52 @@ body#page-course-edit.lang-en_ar select#id_toggleiconset option {
 }
 
 /* Assist the layout. */
-body.format-topcoll.dir-rtl .course-content ul.ctopics li.section .left {
+body.format-mytopcoll.dir-rtl .course-content ul.ctopics li.section .left {
     float: right;
 }
 
-body.format-topcoll.dir-rtl .course-content ul.ctopics li.section .right {
+body.format-mytopcoll.dir-rtl .course-content ul.ctopics li.section .right {
     float: left;
 }
 
-body.format-topcoll .ctopics .section .activity .mod-indent-outer,
-body.format-topcoll.editing.dir-rtl .ctopics .section .activity .mod-indent-outer {
+body.format-mytopcoll .ctopics .section .activity .mod-indent-outer,
+body.format-mytopcoll.editing.dir-rtl .ctopics .section .activity .mod-indent-outer {
     padding-left: 0;
 }
 
-body.format-topcoll.editing .ctopics .section .activity .mod-indent-outer {
+body.format-mytopcoll.editing .ctopics .section .activity .mod-indent-outer {
     padding-left: 32px;
 }
 
-body.format-topcoll.dir-rtl .ctopics .section .activity .mod-indent-outer {
+body.format-mytopcoll.dir-rtl .ctopics .section .activity .mod-indent-outer {
     padding-right: 0;
 }
 
-body.format-topcoll.editing.dir-rtl .ctopics .section .activity .mod-indent-outer {
+body.format-mytopcoll.editing.dir-rtl .ctopics .section .activity .mod-indent-outer {
     padding-right: 32px;
 }
 
-body.format-topcoll .ctopics .section  {
+body.format-mytopcoll .ctopics .section  {
     margin: 1em 0;
 }
 
-body.format-topcoll .course-content ul.ctopics li.section .summary {
+body.format-mytopcoll .course-content ul.ctopics li.section .summary {
     margin-left: 0;
 }
 
-body.format-topcoll.dir-rtl .course-content ul.ctopics li.section .summary {
+body.format-mytopcoll.dir-rtl .course-content ul.ctopics li.section .summary {
     margin-right: 0;
 }
 
-body.format-topcoll .course-content ul.ctopics li.section .summary.summaryalwaysshown {
+body.format-mytopcoll .course-content ul.ctopics li.section .summary.summaryalwaysshown {
     padding-top: 10px;
 }
 
-body.format-topcoll.editing #region-main ul.ctopics .moodle-actionmenu ul.menubar {
+body.format-mytopcoll.editing #region-main ul.ctopics .moodle-actionmenu ul.menubar {
     display: none;
 }
 
-body.format-topcoll.editing.jsenabled #region-main ul.ctopics .moodle-actionmenu[data-enhance] ul.menubar {
+body.format-mytopcoll.editing.jsenabled #region-main ul.ctopics .moodle-actionmenu[data-enhance] ul.menubar {
     display: inline-block;
 }
 
@@ -676,11 +676,11 @@ body.jsenabled .toggledsection.sectionopen {
 }
 
 /* Toggle all */
-#toggle-all, #topcoll-display-instructions {
+#toggle-all, #mytopcoll-display-instructions {
     display: none; /* Hide when JavaScript not enabled. */
 }
 
-body.jsenabled #toggle-all, body.jsenabled #topcoll-display-instructions {
+body.jsenabled #toggle-all, body.jsenabled #mytopcoll-display-instructions {
     display: block;
 }
 
@@ -768,7 +768,7 @@ body.jsenabled #toggle-all {
     font-style: italic;
 }
 
-.format-topcoll .inplaceeditable.inplaceeditingon input {
+.format-mytopcoll .inplaceeditable.inplaceeditingon input {
     width: auto;
 }
 
@@ -777,13 +777,13 @@ body.jsenabled #toggle-all {
     body.jsenabled .toggledsection {
         display: block; /* If JavaScript is enabled and we are printing then this css will apply and the section will be shown. */
     }
-    body.jsenabled #toggle-all, body.jsenabled #topcoll-display-instructions, .cttoggle {
+    body.jsenabled #toggle-all, body.jsenabled #mytopcoll-display-instructions, .cttoggle {
         display: none;
     }
     .course-content ul.ctopics li.section.main {
         float: left;
     }
-    body.format-topcoll .course-content ul.ctopics li.section.main {
+    body.format-mytopcoll .course-content ul.ctopics li.section.main {
         padding-bottom: 0;
     }
     ul.ctopics {
