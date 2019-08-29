@@ -826,6 +826,8 @@ class format_mytopcoll_renderer extends format_section_renderer_base {
             echo $this->courserenderer->course_section_add_cm_control($course, $thissection->section, 0);
             echo $this->mytopcoll_section_footer($thissection, $course, false, 0);
         }
+        // Add activity indication
+        echo $this->get_activity_indicator($course);
 
         $shownonetoggle = false;
         $coursenumsections = $this->courseformat->get_last_section_number();
@@ -1131,6 +1133,9 @@ class format_mytopcoll_renderer extends format_section_renderer_base {
         // Make sure the database has the correct state of the toggles if changed by the code.
         // This ensures that a no-change page reload is correct.
         set_user_preference('mytopcoll_toggle_'.$course->id, $toggles);
+
+        // // Add popup markup
+        // echo $this->get_popup_indicator();
     }
 
     /**
@@ -1291,4 +1296,87 @@ class format_mytopcoll_renderer extends format_section_renderer_base {
     public function get_format_responsive() {
         return $this->formatresponsive;
     }
+    // Indicator implementation
+    public function get_activity_indicator($course) {
+        global $PAGE, $DB;
+
+        $editing = $PAGE->user_is_editing();
+        $PAGE->requires->js_call_amd('format_mytopcoll/main', 'init');
+
+        if (!$indicators = $DB->get_records('format_mytopcoll_indicator', array('courseid' => $course->id))) {
+            $indicators = $this->set_default_values($course);
+        };
+
+        $o = '';
+        $controlicons = '';
+        $controls = array();
+        if ($editing) {
+            $controls['del'] = array(
+                                  'name' => '',
+                                  'title' => get_string('deleteindicator', 'format_mytopcoll'),
+                                  'class' => ' fa-trash ind_del',
+                                  'handler' => 'requestremoveindicator');
+            $controls['edit'] = array(
+                                  'name' => '',
+                                  'title' => get_string('editindicator', 'format_mytopcoll'),
+                                  'class' => ' fa-cog ind_edit',
+                                  'handler' => 'geteditindicator');
+        }
+
+        foreach ($controls as $control) {
+            $controlicons .= html_writer::tag('icon', $control['name'], array('class' => 'icon fa'.$control['class'], 'title' => $control['title'], 'data-handler' => $control['handler']));
+        }
+
+        $o .= html_writer::start_tag('div', array('class' => 'd-flex m-5 indicator_wrap', 'data-courseid' => $course->id));
+            foreach($indicators as $indicator) {
+                $o .= html_writer::tag('div', $indicator->name.' '.$controlicons, array('class' => 'ind_item', 'data-id' => $indicator->id, 'data-handler' => 'indicator', 'data-indicator' => $indicator->types));
+            }
+            // Add popup markup
+            $o .= $this->get_popup_indicator();
+        $o .= html_writer::end_tag('div');
+
+        return $o;
+    }
+
+    public function get_popup_indicator() {
+        $o = html_writer::start_tag('div', array('class' => 'modal fade', 'id' => 'modalIndicator', 'tabindex' => '-1'));
+            $o .= html_writer::start_tag('div', array('class' => 'modal-dialog modal-lg modal-dialog-centered'));
+                $o .= html_writer::start_tag('div', array('class' => 'modal-content'));
+                  // header
+                    $o .= html_writer::start_tag('div', array('class' => 'modal-header'));
+                        $o .= html_writer::tag('h5', 'modal title', array('class' => 'modal-title'));
+                        $o .= html_writer::tag('button', '<span>&times;</span>', array('class' => 'close', 'data-dismiss' => 'modal'));
+                    $o .= html_writer::end_tag('div');
+                  // main content
+                  $o .= html_writer::tag('ul', '', array('class' => 'modal-body', 'id' => 'modalContentIndicator'));
+                  // footer
+                  $o .= html_writer::start_tag('div', array('class' => 'modal-footer'));
+                      $o .= html_writer::tag('button', 'Send', array('class' => 'btn btn-pramary', 'data-handler' => 'seteditindicator', 'data-dismiss' => 'modal'));
+                      $o .= html_writer::tag('button', 'Close', array('class' => 'btn btn-secondary', 'data-dismiss' => 'modal'));
+                  $o .= html_writer::end_tag('div');
+
+                $o .= html_writer::end_tag('div');
+            $o .= html_writer::end_tag('div');
+        $o .= html_writer::end_tag('div');
+        $o .= html_writer::tag('button', '', array('class' => 'sr-only', 'id' => 'initBtnIndicator', 'data-toggle' => 'modal', 'data-target' => '#modalIndicator'));
+        return $o;
+    }
+
+    public function set_default_values($course) {
+        global $DB;
+        $types = array('assign', 'page', 'quiz');
+        $indicators = array();
+
+        foreach ($types as $type) {
+            $indicator = new stdClass();
+            $indicator->name = get_string($type, 'format_mytopcoll');
+            $indicator->types = json_encode(array($type));
+            $indicator->courseid = $course->id;
+            array_push($indicators, $indicator);
+        }
+
+        $DB->insert_records('format_mytopcoll_indicator', $indicators);
+        return $indicators;
+    }
+
 }

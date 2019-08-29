@@ -378,3 +378,13 @@ $string['readme_desc'] = 'Please click on \'{$a->url}\' for lots more informatio
 // Depreciated.  Remove in M3.4 version.
 $string['defaultcoursedisplay'] = 'Course display';
 $string['defaultcoursedisplay_desc'] = "Either show all the sections on a single page or section zero and the chosen section on page.";
+
+// Indicators
+$string['assign'] = 'Assign';
+$string['quiz'] = 'Quiz';
+$string['page'] = 'Page';
+$string['deleteindicator'] = 'Delete';
+$string['editindicator'] = 'Edit';
+$string['modchoose'] = 'Add / remove mods from ';
+$string['resourses'] = 'Resourses';
+$string['activities'] = 'Activities';

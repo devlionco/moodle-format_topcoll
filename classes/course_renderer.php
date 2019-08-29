@@ -122,4 +122,14 @@ class format_mytopcoll_course_renderer extends \core_course_renderer {
         }
         return $output;
     }
+
+    /**
+     * Render a modchooser.
+     *
+     * @param renderable $modchooser The chooser.
+     * @return string
+     */
+    public function render_modchooser_indicator(renderable $modchooser) {//echo '<pre>'.print_r($modchooser->export_for_template($this),1).'</pre>'; exit('stop');
+        return $this->render_from_template('core_course/modchooser', $modchooser->export_for_template($this));
+    }
 }

@@ -1498,6 +1498,45 @@ class format_mytopcoll extends format_base {
         $rv['section_availability'] = $renderer->section_availability($this->get_section($section));
         return $rv;
     }
+
+    public function render_modchooser_template($courseid, $indicatorid) {
+        global $PAGE, $DB;
+
+        $coursecontext = context_course::instance($courseid);
+        $PAGE->set_context($coursecontext);
+        $course = get_course($courseid);
+
+        // check to see if user can add menus and there are modules to add
+        if (!has_capability('moodle/course:manageactivities', context_course::instance($courseid))
+                || !($modnames = get_module_types_names()) || empty($modnames)) {
+            return '';
+        }
+        // Retrieve all modules with associated metadata
+        $modules = get_module_metadata($course, $modnames, $sectionreturn = null);
+        $modchooser = new \core_course\output\modchooser($course, $modules);
+        $modchooser->indicatorid = $indicatorid;
+        unset(
+            $modchooser->course,
+            $modchooser->actionurl,
+            $modchooser->instructions
+        );
+
+        $indicator = $DB->get_record('format_mytopcoll_indicator', array('id' => $indicatorid));
+        $activitytype = json_decode($indicator->types);
+
+        foreach ($modchooser->sections as $seckey => $section) {
+            $temparray=array();
+            foreach($section->items as $key => $item) {
+              $temparray[]=$section->items[$key];
+              if (in_array($item->id, $activitytype)) {
+                $item->checked = true;
+              }
+            }
+            $section->items=$temparray;
+            $section->label = $seckey ? get_string('resourses', 'format_mytopcoll') : get_string('activities', 'format_mytopcoll') ;
+        }
+        return json_encode($modchooser);
+    }
 }
 
 /**

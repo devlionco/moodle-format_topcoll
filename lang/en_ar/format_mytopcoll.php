@@ -226,3 +226,8 @@ $string['defaulttoggleborderradiusbr'] = 'Toggle bottom right border radius';
 $string['defaulttoggleborderradiusbr_desc'] = 'Border bottom right radius of thy toggle.';
 $string['defaulttoggleborderradiusbl'] = 'Toggle bottom left border radius';
 $string['defaulttoggleborderradiusbl_desc'] = 'Border bottom left radius of thy toggle.';
+
+// Indicators
+$string['assign'] = 'Assign';
+$string['quiz'] = 'Quiz';
+$string['page'] = 'Page';
