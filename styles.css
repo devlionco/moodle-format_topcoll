@@ -799,6 +799,15 @@ body.jsenabled #toggle-all {
     bottom: -0.5rem;
 }
 
+.addIndicator {
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    border: 3px dashed #28a745;
+    border-radius: 50%;
+}
+
 /* Print styles. */
 @media print {
     body.jsenabled .toggledsection {

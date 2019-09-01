@@ -1522,7 +1522,7 @@ class format_mytopcoll extends format_base {
         );
 
         $indicator = $DB->get_record('format_mytopcoll_indicator', array('id' => $indicatorid));
-        $activitytype = json_decode($indicator->types);
+        $activitytype = $indicator ? json_decode($indicator->types) : array();
 
         foreach ($modchooser->sections as $seckey => $section) {
             $temparray=array();
@@ -1535,6 +1535,7 @@ class format_mytopcoll extends format_base {
             $section->items=$temparray;
             $section->label = $seckey ? get_string('resourses', 'format_mytopcoll') : get_string('activities', 'format_mytopcoll') ;
         }
+        $modchooser->addnewindicator = $indicatorid ? 0 : 1;
         return json_encode($modchooser);
     }
 }

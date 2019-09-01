@@ -101,22 +101,68 @@ class format_mytopcoll_external extends external_api {
     public static function set_edit_indicator_parameters() {
         return new external_function_parameters(
                 array(
+                    'courseid' => new external_value(PARAM_INT, 'Course ID'),
                     'indicatorid' => new external_value(PARAM_INT, 'Indicator ID'),
                     'data' => new external_value(PARAM_TEXT, 'Activity types')
                 )
         );
     }
 
-    public static function set_edit_indicator($indicatorid, $data) {
+    public static function set_edit_indicator($courseid, $indicatorid, $data) {
         global $DB;
         $params = self::validate_parameters(self::set_edit_indicator_parameters(),
                         array(
+                            'courseid' => (int) $courseid,
                             'indicatorid' => (int) $indicatorid,
                             'data' => $data,
                         )
         );
+        if ($indicatorid) {
+            $dataobject = $DB->get_record('format_mytopcoll_indicator', array('id' => $indicatorid), '*', MUST_EXIST);
+            $dataobject->types = $data;
+            $update = $DB->update_record('format_mytopcoll_indicator', $dataobject);
+            return $DB->update_record('format_mytopcoll_indicator', $dataobject);
+        }else {
+            $data =  json_decode($data);
+            $dataobject = new stdClass();
+            $dataobject->name = $data->name;
+            $dataobject->types = json_encode($data->types);
+            $dataobject->courseid = $courseid;
+            return $DB->insert_record('format_mytopcoll_indicator', $dataobject);
+        }
+    }
+
+    /**
+     * Returns description of method result value
+     * @return external_description
+     */
+    public static function set_edit_indicator_returns() {
+        return new external_value(PARAM_INT, 'record id');
+    }
+
+    /**
+     * Returns description of method parameters
+     * @return external_function_parameters
+     */
+    public static function update_indicator_name_parameters() {
+        return new external_function_parameters(
+                array(
+                    'indicatorid' => new external_value(PARAM_INT, 'Indicator ID'),
+                    'indicatorname' => new external_value(PARAM_TEXT, 'Indicator name')
+                )
+        );
+    }
+
+    public static function update_indicator_name($indicatorid, $indicatorname) {
+        global $DB;
+        $params = self::validate_parameters(self::update_indicator_name_parameters(),
+                        array(
+                            'indicatorid' => (int) $indicatorid,
+                            'indicatorname' => $indicatorname,
+                        )
+        );
         $dataobject = $DB->get_record('format_mytopcoll_indicator', array('id' => $indicatorid), '*', MUST_EXIST);
-        $dataobject->types = $data;
+        $dataobject->name = $indicatorname;
         $update = $DB->update_record('format_mytopcoll_indicator', $dataobject);
 
         return $update ? 1 : 0;
@@ -126,7 +172,7 @@ class format_mytopcoll_external extends external_api {
      * Returns description of method result value
      * @return external_description
      */
-    public static function set_edit_indicator_returns() {
+    public static function update_indicator_name_returns() {
         return new external_value(PARAM_BOOL, 'status: true if success');
     }
 }

@@ -388,3 +388,7 @@ $string['editindicator'] = 'Edit';
 $string['modchoose'] = 'Add / remove mods from ';
 $string['resourses'] = 'Resourses';
 $string['activities'] = 'Activities';
+$string['close'] = 'Close';
+$string['newindicator'] = 'New';
+$string['addnewindicator'] = 'Add';
+$string['ok'] = 'Ok';

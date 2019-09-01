@@ -36,51 +36,80 @@
         }]
     }
 }}
-<div class="">
+<div class="modal-header">
+  <h5 class="modal-title" id="modaltitle">
+    <span>{{modaltitle}}</span>
+    {{#addnewindicator}}
+      <input id = "indicatornamedit" data-handler = "indicatornamedit" class = "" value = "{{indicatorname}}">
+    {{/addnewindicator}}
+    {{^addnewindicator}}
+      <span id = "indicatorname">
+        <span><b class = "srcname">{{indicatorname}}</b></span>
+        <span class="quickediticon" id = "toggleinplaceditable">{{#pix}}t/editstring,core,{{{edithint}}}{{/pix}}</span>
+      </span>
+      <input id = "indicatornamedit" data-handler = "indicatornamedit" class = "d-none" value = "{{indicatorname}}">
+    {{/addnewindicator}}
+  </h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
 
-        <div id="chooseform">
-            <form action="{{actionurl}}" id="indchooserform" method="{{method}}" data-indicatorid ="{{indicatorid}}">
-                <div id="typeformdiv">
-                    {{#params}}
-                        <input type="hidden" id="{{id}}" name="{{name}}" value="{{value}}">
-                    {{/params}}
-                    <input type="hidden" name="sesskey" value="{{sesskey}}">
-                </div>
+  <div id="chooseform">
+      <form action="{{actionurl}}" id="indchooserform" method="{{method}}" data-indicatorid ="{{indicatorid}}">
+          <div id="typeformdiv">
+              {{#params}}
+                  <input type="hidden" id="{{id}}" name="{{name}}" value="{{value}}">
+              {{/params}}
+              <input type="hidden" name="sesskey" value="{{sesskey}}">
+          </div>
 
-                <div class="options">
-                    <div class="instruction">
-                        {{instructions}}
-                    </div>
-                    <div class="alloptions">
-                        {{#sections}}
-                            <div class="moduletypetitle">
-                                <label for="item_{{id}}">
-                                    <span class="typename">{{label}}</span>
-                                </label>
-                            </div>
-                            {{#items}}
-                              <div class="option">
-                                <label for="ind_{{id}}">
-                                    <input type="checkbox" name="{{paramname}}" id = "ind_{{id}}" data-type="{{id}}" value="{{value}}" {{#checked}}checked{{/checked}}>
-                                    <span class="modicon">
-                                        {{#icon}}
-                                            {{>core/pix_icon}}
-                                        {{/icon}}
-                                    </span>
-                                    <span class="typename">{{label}}</span>
-                                </label>
-                              </div>
-                            {{/items}}
-                        {{/sections}}
-                    </div>
-                </div>
+          <div class="options">
+              <div class="instruction">
+                  {{instructions}}
+              </div>
+              <div class="alloptions">
+                  {{#sections}}
+                      <div class="moduletypetitle">
+                          <label for="item_{{id}}">
+                              <span class="typename">{{label}}</span>
+                          </label>
+                      </div>
+                      {{#items}}
+                        <div class="option">
+                          <label for="ind_{{id}}">
+                              <input type="checkbox" name="{{paramname}}" id = "ind_{{id}}" data-type="{{id}}" value="{{value}}" {{#checked}}checked{{/checked}}>
+                              <span class="modicon">
+                                  {{#icon}}
+                                      {{>core/pix_icon}}
+                                  {{/icon}}
+                              </span>
+                              <span class="typename">{{label}}</span>
+                          </label>
+                        </div>
+                      {{/items}}
+                  {{/sections}}
+              </div>
+          </div>
 
-                <!-- <div class="submitbuttons">
-                    <input type="submit" name="submitbutton" class="submitbutton" value={{#quote}}{{#str}}add{{/str}}{{/quote}}>
-                    <input type="submit" name="addcancel" class="addcancel" value={{#quote}}{{#str}}cancel{{/str}}{{/quote}}>
-                </div> -->
-
-            </form>
-        </div>
+      </form>
+  </div>
 
 </div>
+<div class="modal-footer">
+  <button
+      type="button"
+      class="btn btn-primary"
+      data-dismiss="modal"
+      {{#addnewindicator}}data-handler = "addindicator">{{#str}} addnewindicator, format_mytopcoll {{/str}}{{/addnewindicator}}
+      {{^addnewindicator}}data-handler = "seteditindicator">{{#str}} ok, format_mytopcoll {{/str}}{{/addnewindicator}}
+  </button>
+  <button type="button" class="btn btn-secondary" data-dismiss="modal">{{#str}} close, format_mytopcoll {{/str}}</button>
+</div>
+{{#js}}
+$('#toggleinplaceditable').click(function(e){
+    $('#indicatornamedit').removeClass('d-none').focus();
+    $('#indicatorname').addClass('d-none');
+});
+{{/js}}

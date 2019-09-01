@@ -1133,9 +1133,6 @@ class format_mytopcoll_renderer extends format_section_renderer_base {
         // Make sure the database has the correct state of the toggles if changed by the code.
         // This ensures that a no-change page reload is correct.
         set_user_preference('mytopcoll_toggle_'.$course->id, $toggles);
-
-        // // Add popup markup
-        // echo $this->get_popup_indicator();
     }
 
     /**
@@ -1296,6 +1293,7 @@ class format_mytopcoll_renderer extends format_section_renderer_base {
     public function get_format_responsive() {
         return $this->formatresponsive;
     }
+
     // Indicator implementation
     public function get_activity_indicator($course) {
         global $PAGE, $DB;
@@ -1310,6 +1308,7 @@ class format_mytopcoll_renderer extends format_section_renderer_base {
         $o = '';
         $controlicons = '';
         $controls = array();
+        $modaldata = array();
         if ($editing) {
             $controls['del'] = array(
                                   'name' => '',
@@ -1329,36 +1328,23 @@ class format_mytopcoll_renderer extends format_section_renderer_base {
 
         $o .= html_writer::start_tag('div', array('class' => 'd-flex m-5 indicator_wrap', 'data-courseid' => $course->id));
             foreach($indicators as $indicator) {
-                $o .= html_writer::tag('div', $indicator->name.' '.$controlicons, array('class' => 'ind_item', 'data-id' => $indicator->id, 'data-handler' => 'indicator', 'data-indicator' => $indicator->types));
+                $attr = array(
+                  'class' => 'ind_item',
+                  'data-id' => $indicator->id,
+                  'data-name' => $indicator->name,
+                  'data-handler' => 'indicator',
+                  'data-indicator' => $indicator->types
+                );
+                $indicatorhead = html_writer::tag('span', $indicator->name, array('class' => 'indicator_name'));
+                $o .= html_writer::tag('div', $indicatorhead.' '.$controlicons, $attr);
+            }
+            if ($editing) {
+                $o .= html_writer::tag('div', 'add new', array('class'=>'addIndicator', 'data-handler' => 'geteditindicator'));
             }
             // Add popup markup
-            $o .= $this->get_popup_indicator();
+            $o .= $this->render_from_template('format_mytopcoll/modalwrapper', $modaldata);
         $o .= html_writer::end_tag('div');
 
-        return $o;
-    }
-
-    public function get_popup_indicator() {
-        $o = html_writer::start_tag('div', array('class' => 'modal fade', 'id' => 'modalIndicator', 'tabindex' => '-1'));
-            $o .= html_writer::start_tag('div', array('class' => 'modal-dialog modal-lg modal-dialog-centered'));
-                $o .= html_writer::start_tag('div', array('class' => 'modal-content'));
-                  // header
-                    $o .= html_writer::start_tag('div', array('class' => 'modal-header'));
-                        $o .= html_writer::tag('h5', 'modal title', array('class' => 'modal-title'));
-                        $o .= html_writer::tag('button', '<span>&times;</span>', array('class' => 'close', 'data-dismiss' => 'modal'));
-                    $o .= html_writer::end_tag('div');
-                  // main content
-                  $o .= html_writer::tag('ul', '', array('class' => 'modal-body', 'id' => 'modalContentIndicator'));
-                  // footer
-                  $o .= html_writer::start_tag('div', array('class' => 'modal-footer'));
-                      $o .= html_writer::tag('button', 'Send', array('class' => 'btn btn-pramary', 'data-handler' => 'seteditindicator', 'data-dismiss' => 'modal'));
-                      $o .= html_writer::tag('button', 'Close', array('class' => 'btn btn-secondary', 'data-dismiss' => 'modal'));
-                  $o .= html_writer::end_tag('div');
-
-                $o .= html_writer::end_tag('div');
-            $o .= html_writer::end_tag('div');
-        $o .= html_writer::end_tag('div');
-        $o .= html_writer::tag('button', '', array('class' => 'sr-only', 'id' => 'initBtnIndicator', 'data-toggle' => 'modal', 'data-target' => '#modalIndicator'));
         return $o;
     }
 
