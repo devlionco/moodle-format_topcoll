@@ -1309,6 +1309,7 @@ class format_mytopcoll_renderer extends format_section_renderer_base {
         $controlicons = '';
         $controls = array();
         $modaldata = array();
+
         if ($editing) {
             $controls['del'] = array(
                                   'name' => '',
@@ -1328,15 +1329,21 @@ class format_mytopcoll_renderer extends format_section_renderer_base {
 
         $o .= html_writer::start_tag('div', array('class' => 'd-flex m-5 indicator_wrap', 'data-courseid' => $course->id));
             foreach($indicators as $indicator) {
+                $modtypes = json_decode($indicator->types);
+                $newactivity = $this->courseformat->get_new_activity($modtypes, $course->id) ? get_string('new', 'format_mytopcoll') : '';
                 $attr = array(
                   'class' => 'ind_item',
                   'data-id' => $indicator->id,
                   'data-name' => $indicator->name,
                   'data-handler' => 'indicator',
-                  'data-indicator' => $indicator->types
+                  'data-indicator' => $indicator->types,
+                  'data-count' => $indicator->count
                 );
-                $indicatorhead = html_writer::tag('span', $indicator->name, array('class' => 'indicator_name'));
-                $o .= html_writer::tag('div', $indicatorhead.' '.$controlicons, $attr);
+                $indicatorcontent = html_writer::tag('span', $indicator->name, array('class' => 'indicator_name'));
+                $indicatorcontent .= html_writer::tag('span', $indicator->count, array('class' => 'indicator_counter'));
+                $indicatorcontent .= html_writer::tag('span', $newactivity, array('class' => 'indicator_new'));
+                $indicatorcontent .= $controlicons;
+                $o .= html_writer::tag('div', $indicatorcontent, $attr);
             }
             if ($editing) {
                 $o .= html_writer::tag('div', 'add new', array('class'=>'addIndicator', 'data-handler' => 'geteditindicator'));
@@ -1350,13 +1357,16 @@ class format_mytopcoll_renderer extends format_section_renderer_base {
 
     public function set_default_values($course) {
         global $DB;
-        $types = array('assign', 'page', 'quiz');
+        $modtypes = array('assign', 'page', 'quiz');
         $indicators = array();
 
-        foreach ($types as $type) {
+        foreach ($modtypes as $modtype) {
+            $modules = get_coursemodules_in_course($modtype, $course->id);
+
             $indicator = new stdClass();
-            $indicator->name = get_string($type, 'format_mytopcoll');
-            $indicator->types = json_encode(array($type));
+            $indicator->name = get_string($modtype, 'format_mytopcoll');
+            $indicator->types = json_encode(array($modtype));
+            $indicator->count = count($modules);
             $indicator->courseid = $course->id;
             array_push($indicators, $indicator);
         }

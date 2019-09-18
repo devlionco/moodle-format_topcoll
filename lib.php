@@ -1538,6 +1538,31 @@ class format_mytopcoll extends format_base {
         $modchooser->addnewindicator = $indicatorid ? 0 : 1;
         return json_encode($modchooser);
     }
+
+    public function get_new_activity($modtypes, $courseid) {
+        global $DB, $USER;
+
+        $modtypes =  "'".implode("','",$modtypes)."'";
+        $options[] = $USER->id;
+        $options[] = $courseid;
+
+        $sql = "
+            SELECT *
+            FROM {modules} AS m
+            LEFT JOIN {course_modules} AS cm
+                ON cm.module = m.id
+            WHERE m.name IN (".$modtypes.")
+                AND cm.id NOT IN (
+                    SELECT lsl.contextinstanceid
+                    FROM {logstore_standard_log} AS lsl
+                    WHERE lsl.userid = ?
+                        AND lsl.action = 'viewed'
+                        AND lsl.target = 'course_module'
+                        AND lsl.courseid = ?
+                )
+        ";
+        return $DB->get_records_sql($sql, $options);
+    }
 }
 
 /**

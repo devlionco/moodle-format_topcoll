@@ -9,6 +9,7 @@
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" COMMENT="indicator item name"/>
         <FIELD NAME="types" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Resource types"/>
+        <FIELD NAME="count" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Count of types"/>
         <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" COMMENT="Needed to identify records when deleting a course"/>
       </FIELDS>
       <KEYS>

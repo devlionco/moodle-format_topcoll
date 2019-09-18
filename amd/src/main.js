@@ -88,7 +88,7 @@ define([
              * @param {node} target
              */
             function cloneNodesToModal(target) {
-                var types = JSON.parse(target.dataset.indicator),
+                var modtypes = JSON.parse(target.dataset.indicator),
                     acitivityWrapper = document.createElement('ul');
 
                 var context = {
@@ -99,8 +99,8 @@ define([
                   .done(function(html, js) {
                       Templates.replaceNodeContents(modalContent, html, js);
                       courseContent.querySelector(SELECTORS.modalBody).innerHTML = '';
-                      types.forEach(function(type) {
-                          var activities = courseContent.querySelectorAll('li.activity.' + type);
+                      modtypes.forEach(function(modtype) {
+                          var activities = courseContent.querySelectorAll('li.activity.' + modtype);
                           activities.forEach(function(activity) {
                               acitivityWrapper.appendChild(activity.cloneNode(true));
                           });
@@ -169,30 +169,34 @@ define([
             }
 
             /**
-             * Edit current indicator
-             *
-             * @param {node} target
-             */
+            * Edit current indicator
+            *
+            * @param {node} target
+            */
             function setEditIndicator() {
               var form = courseContent.querySelector('#indchooserform'),
-                  data = [],
+                  modTypes = [],
                   indicatorid = form.dataset.indicatorid,
                   checkedBoxes = Array.from(form.querySelectorAll('input[type=checkbox]:checked'));
 
               checkedBoxes.forEach(function(item) {
-                  data.push(item.dataset.type);
+                  modTypes.push(item.dataset.type);
               });
+
               Ajax.call([{
                   methodname: 'format_mytopcoll_set_edit_indicator',
                   args: {
                       courseid: Number(indicationWrapper.dataset.courseid),
                       indicatorid: Number(indicatorid),
-                      data: JSON.stringify(data)
+                      data: JSON.stringify({modtypes: modTypes})
                   },
                   done: function(responce) {
                       if (responce) {
+                          var data = JSON.parse(responce);
                           var indicator = indicationWrapper.querySelector('div[data-id="' + indicatorid + '"]');
-                          indicator.dataset.indicator = JSON.stringify(data);
+                          indicator.dataset.indicator = data.types;
+                          indicator.dataset.count = data.count;
+                          indicator.querySelector('.indicator_counter').innerHTML = data.count;
                       } else {
                           Notification.exception();
                       }
@@ -248,16 +252,15 @@ define([
              */
             function addIndicator() {
                 var form = courseContent.querySelector('#indchooserform'),
-                    addIndicator = document.querySelector('.addIndicator'),
-                    activityTypes = [],
+                    modTypes = [],
                     checkedBoxes = Array.from(form.querySelectorAll('input[type=checkbox]:checked')),
                     name = indicationWrapper.querySelector('#indicatornamedit').value;
 
                 checkedBoxes.forEach(function(item) {
-                    activityTypes.push(item.dataset.type);
+                    modTypes.push(item.dataset.type);
                 });
                 var data = {
-                  types: activityTypes,
+                  modtypes: modTypes,
                   name: name
                 };
 
@@ -270,19 +273,44 @@ define([
                     },
                     done: function(responce) {
                         if (responce) {
-                            var indicator = document.querySelector('.ind_item'),
-                                newIndicator = indicator.cloneNode(true);
-                            newIndicator.querySelector('.indicator_name').innerHTML = name;
-                            newIndicator.dataset.id = responce;
-                            newIndicator.dataset.name = name;
-                            newIndicator.dataset.indicator = data;
-                            indicationWrapper.insertBefore(newIndicator, addIndicator);
+                            var data = JSON.parse(responce);
+                            makeNewIndicator(data);
                         } else {
                             Notification.exception();
                         }
                     },
                     fail: Notification.exception
                 }]);
+            }
+
+            /**
+             * Add new node indicator with updated data
+             * @param {object} data
+             */
+            function makeNewIndicator(data) {
+                var indicator = document.querySelector('.ind_item'),
+                    addIndicator = document.querySelector('.addIndicator'),
+                    newIndicator = indicator.cloneNode(true);
+                newIndicator.querySelector('.indicator_name').innerHTML = data.name;
+                newIndicator.querySelector('.indicator_counter').innerHTML = data.count;
+                newIndicator.querySelector('.indicator_new').innerHTML = data.hasnewactivity;
+                newIndicator.dataset.id = data.id;
+                newIndicator.dataset.name = data.name;
+                newIndicator.dataset.indicator = data.types;
+                newIndicator.dataset.count = data.count;
+                indicationWrapper.insertBefore(newIndicator, addIndicator);
+            }
+
+            /**
+             * Update count indicator
+             * @param {string} count
+             */
+            function updateCount(count) {
+              var counter = 0;
+              types.forEach(function(type) {
+                  counter += Array.from(courseContent.querySelectorAll('li.activity.' + type));
+              });
+              return counter;
             }
 
         }

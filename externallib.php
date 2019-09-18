@@ -117,18 +117,35 @@ class format_mytopcoll_external extends external_api {
                             'data' => $data,
                         )
         );
+
+        $data =  json_decode($data);
+        $count = 0;
+        foreach ($data->modtypes as $modtype) {
+            $modules = get_coursemodules_in_course($modtype, $courseid);
+            $count = $count + count($modules);
+        }
+
+        $allnewactivity = course_get_format($courseid)->get_new_activity($data->modtypes, $courseid);
+        $hasnewactivity = $allnewactivity ? get_string('new', 'format_mytopcoll') : '';
+
         if ($indicatorid) {
-            $dataobject = $DB->get_record('format_mytopcoll_indicator', array('id' => $indicatorid), '*', MUST_EXIST);
-            $dataobject->types = $data;
-            $update = $DB->update_record('format_mytopcoll_indicator', $dataobject);
-            return $DB->update_record('format_mytopcoll_indicator', $dataobject);
+            $updateindicator = $DB->get_record('format_mytopcoll_indicator', array('id' => $indicatorid), '*', MUST_EXIST);
+            $updateindicator->types = json_encode($data->modtypes);
+            $updateindicator->count = $count;
+            $newindicator->hasnewactivity = $hasnewactivity;
+            $updateindicator->id = $DB->update_record('format_mytopcoll_indicator', $updateindicator);
+
+            return $updateindicator->id  ? json_encode($updateindicator) : 0;
         }else {
-            $data =  json_decode($data);
-            $dataobject = new stdClass();
-            $dataobject->name = $data->name;
-            $dataobject->types = json_encode($data->types);
-            $dataobject->courseid = $courseid;
-            return $DB->insert_record('format_mytopcoll_indicator', $dataobject);
+            $newindicator = new stdClass();
+            $newindicator->name = $data->name;
+            $newindicator->types = json_encode($data->modtypes);
+            $newindicator->count = $count;
+            $newindicator->hasnewactivity = $hasnewactivity;
+            $newindicator->courseid = $courseid;
+            $newindicator->id = $DB->insert_record('format_mytopcoll_indicator', $newindicator);
+
+            return $newindicator->id ? json_encode($newindicator) : 0;
         }
     }
 
@@ -137,7 +154,7 @@ class format_mytopcoll_external extends external_api {
      * @return external_description
      */
     public static function set_edit_indicator_returns() {
-        return new external_value(PARAM_INT, 'record id');
+        return new external_value(PARAM_RAW, 'New indicator');
     }
 
     /**
