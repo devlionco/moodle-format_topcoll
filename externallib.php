@@ -132,7 +132,7 @@ class format_mytopcoll_external extends external_api {
             $updateindicator = $DB->get_record('format_mytopcoll_indicator', array('id' => $indicatorid), '*', MUST_EXIST);
             $updateindicator->types = json_encode($data->modtypes);
             $updateindicator->count = $count;
-            $newindicator->hasnewactivity = $hasnewactivity;
+            $updateindicator->hasnewactivity = $hasnewactivity;
             $updateindicator->id = $DB->update_record('format_mytopcoll_indicator', $updateindicator);
 
             return $updateindicator->id  ? json_encode($updateindicator) : 0;

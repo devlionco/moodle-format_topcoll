@@ -1307,30 +1307,25 @@ class format_mytopcoll_renderer extends format_section_renderer_base {
 
         $o = '';
         $controlicons = '';
-        $controls = array();
-        $modaldata = array();
 
         if ($editing) {
-            $controls['del'] = array(
-                                  'name' => '',
-                                  'title' => get_string('deleteindicator', 'format_mytopcoll'),
-                                  'class' => ' fa-trash ind_del',
-                                  'handler' => 'requestremoveindicator');
-            $controls['edit'] = array(
-                                  'name' => '',
-                                  'title' => get_string('editindicator', 'format_mytopcoll'),
-                                  'class' => ' fa-cog ind_edit',
-                                  'handler' => 'geteditindicator');
+          $controlicons .= html_writer::tag('icon', '', array(
+              'class' => 'icon fa fa-trash ind_del m-0',
+              'title' => get_string('deleteindicator', 'format_mytopcoll'),
+              'data-toggle'=>'dropdown')
+          );
+          $controlicons .= html_writer::tag('icon', '', array(
+              'class' => 'icon fa fa-cog ind_edit m-0',
+              'title' => get_string('editindicator', 'format_mytopcoll'),
+              'data-handler' => 'geteditindicator')
+          );
         }
 
-        foreach ($controls as $control) {
-            $controlicons .= html_writer::tag('icon', $control['name'], array('class' => 'icon fa'.$control['class'], 'title' => $control['title'], 'data-handler' => $control['handler']));
-        }
+        $o .= html_writer::start_tag('div', array('class' => 'd-flex m-5 justify-content-around flex-wrap indicator_wrap', 'data-courseid' => $course->id));
 
-        $o .= html_writer::start_tag('div', array('class' => 'd-flex m-5 indicator_wrap', 'data-courseid' => $course->id));
             foreach($indicators as $indicator) {
                 $modtypes = json_decode($indicator->types);
-                $newactivity = $this->courseformat->get_new_activity($modtypes, $course->id) ? get_string('new', 'format_mytopcoll') : '';
+                $newactivity = $this->courseformat->get_new_activity($modtypes, $course->id) ? get_string('new', 'format_mytopcoll') : false;
                 $attr = array(
                   'class' => 'ind_item',
                   'data-id' => $indicator->id,
@@ -1339,17 +1334,27 @@ class format_mytopcoll_renderer extends format_section_renderer_base {
                   'data-indicator' => $indicator->types,
                   'data-count' => $indicator->count
                 );
-                $indicatorcontent = html_writer::tag('span', $indicator->name, array('class' => 'indicator_name'));
-                $indicatorcontent .= html_writer::tag('span', $indicator->count, array('class' => 'indicator_counter'));
-                $indicatorcontent .= html_writer::tag('span', $newactivity, array('class' => 'indicator_new'));
-                $indicatorcontent .= $controlicons;
-                $o .= html_writer::tag('div', $indicatorcontent, $attr);
+                $indicatorcount = html_writer::tag('span', $indicator->count, array('class' => 'indicator_counter m-auto p-1 overflow-hidden text-white'));
+                $indicatorcontent = $controlicons;
+
+                $text = html_writer::tag('p', get_string('confirm_deletion', 'format_mytopcoll'),array('class'=>''));
+                $btndel = html_writer::tag('button', get_string('deleteindicator', 'format_mytopcoll'), array('class'=>'btn btn-outline-danger btn-sm mr-3', 'data-handler' => 'requestremoveindicator'));
+                $btncancel = html_writer::tag('button', get_string('cancel', 'format_mytopcoll'), array('class'=>'btn btn-outline-secondary btn-sm'));
+                $dropdownmenu = html_writer::tag('div', $text.$btndel.$btncancel ,array('class'=> 'dropdown-menu pl-2 pr-2', 'data-id'=>$indicator->id));
+
+                $indicatorcontent .= $newactivity ? html_writer::tag('span', $newactivity, array('class' => 'indicator_new')) : '';
+
+                $o .= html_writer::start_tag('div', array('class' => 'indicator d-flex flex-column align-items-center position-relative'));
+                    $o .= html_writer::tag('div', $indicatorcount, $attr);
+                    $o .= html_writer::tag('div', $indicator->name, array('class'=>'mt-2 indicator_name'));
+                    $o .= $indicatorcontent.$dropdownmenu;
+                $o .= html_writer::end_tag('div');
             }
             if ($editing) {
-                $o .= html_writer::tag('div', 'add new', array('class'=>'addIndicator', 'data-handler' => 'geteditindicator'));
+                $o .= html_writer::tag('div', '<span class = "m-auto">'.get_string('new', 'format_mytopcoll').'</span>', array('class'=>'addIndicator', 'data-handler' => 'geteditindicator'));
             }
             // Add popup markup
-            $o .= $this->render_from_template('format_mytopcoll/modalwrapper', $modaldata);
+            $o .= $this->render_from_template('format_mytopcoll/modalwrapper', array());
         $o .= html_writer::end_tag('div');
 
         return $o;

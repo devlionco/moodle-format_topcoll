@@ -1499,6 +1499,13 @@ class format_mytopcoll extends format_base {
         return $rv;
     }
 
+    /**
+     * Get mod info in a specific course and indicator.
+     *
+     * @param int $courseid
+     * @param int $indicatorid
+     * @return string
+     */
     public function render_modchooser_template($courseid, $indicatorid) {
         global $PAGE, $DB;
 
@@ -1536,15 +1543,23 @@ class format_mytopcoll extends format_base {
             $section->label = $seckey ? get_string('resourses', 'format_mytopcoll') : get_string('activities', 'format_mytopcoll') ;
         }
         $modchooser->addnewindicator = $indicatorid ? 0 : 1;
+
         return json_encode($modchooser);
     }
 
+    /**
+     * Find all unviewed activities in a specific course and indicator.
+     *
+     * @param array $modtypes
+     * @param int $courseid
+     * @return stdClass
+     */
     public function get_new_activity($modtypes, $courseid) {
         global $DB, $USER;
 
         $modtypes =  "'".implode("','",$modtypes)."'";
-        $options[] = $USER->id;
         $options[] = $courseid;
+        $options[] = $USER->id;
 
         $sql = "
             SELECT *
@@ -1552,13 +1567,14 @@ class format_mytopcoll extends format_base {
             LEFT JOIN {course_modules} AS cm
                 ON cm.module = m.id
             WHERE m.name IN (".$modtypes.")
+                AND cm.course = ?
                 AND cm.id NOT IN (
                     SELECT lsl.contextinstanceid
                     FROM {logstore_standard_log} AS lsl
                     WHERE lsl.userid = ?
                         AND lsl.action = 'viewed'
                         AND lsl.target = 'course_module'
-                        AND lsl.courseid = ?
+
                 )
         ";
         return $DB->get_records_sql($sql, $options);

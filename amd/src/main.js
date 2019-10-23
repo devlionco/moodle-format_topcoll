@@ -1,11 +1,12 @@
 /* jshint ignore:start */
 define([
+  'jquery',
   'core/log',
   'core/ajax',
   'core/notification',
   'core/templates',
   'core/str'
-], function(log, Ajax, Notification, Templates, Str) {
+], function($, log, Ajax, Notification, Templates, Str) {
 
     return {
         init: function() {
@@ -34,7 +35,7 @@ define([
 
             var strings = Str.get_strings([
                 {key: 'modchoose', component: 'format_mytopcoll'},
-                {key: 'newindicator', component: 'format_mytopcoll'},
+                {key: 'new', component: 'format_mytopcoll'},
             ]);
 
             var courseContent = document.querySelector(SELECTORS.courseContent),
@@ -44,32 +45,24 @@ define([
 
             indicationWrapper.addEventListener('click', function(e) {
                 var target = e.target;
-                while (!target.contains(indicationWrapper)) {
-                  if (target.dataset.handler === 'indicator') {
-                      cloneNodesToModal(target);
-                      return;
+                while (indicationWrapper.contains(target)) {
+                  switch (target.dataset.handler) {
+                    case 'indicator':
+                        cloneNodesToModal(target);
+                        break;
+                    case 'requestremoveindicator':
+                        removeIndicator(target);
+                        break;
+                    case 'geteditindicator':
+                        getIndicatorData(target);
+                        break;
+                    case 'seteditindicator':
+                        setEditIndicator(target);
+                        break;
+                    case 'addindicator':
+                        addIndicator(target);
+                        break;
                   }
-
-                  if (target.dataset.handler === 'requestremoveindicator') {
-                      removeIndicator(target);
-                      return;
-                  }
-
-                  if (target.dataset.handler === 'geteditindicator') {
-                      getIndicatorData(target);
-                      return;
-                  }
-
-                  if (target.dataset.handler === 'seteditindicator') {
-                      setEditIndicator();
-                      return;
-                  }
-
-                  if (target.dataset.handler === 'addindicator') {
-                      addIndicator();
-                      return;
-                  }
-
                   target = target.parentNode;
                 }
             });
@@ -117,18 +110,16 @@ define([
              * @param {node} target
              */
             function removeIndicator(target) {
-              while (!target.classList.contains('ind_item')) {
-                target = target.parentNode;
-              }
+              var indicatorid = target.parentNode.dataset.id;
               Ajax.call([{
                   methodname: 'format_mytopcoll_delete_indicator',
                   args: {
-                      indicatorid: Number(target.dataset.id),
+                      indicatorid: Number(indicatorid),
                   },
                   done: function(result) {
                       if (result) {
-                          var indicator = document.querySelector(".ind_item[data-id='" + target.dataset.id + "']");
-                          indicator.remove();
+                          var indicator = $(".ind_item[data-id='" + indicatorid + "']");
+                          indicator.parent().remove();
                       } else {
                           Notification.exception();
                       }
@@ -143,7 +134,7 @@ define([
              * @param {node} target
              */
             function getIndicatorData(target) {
-              target = target.parentNode;
+              target = target.previousSibling.previousSibling.previousSibling;
               Ajax.call([{
                   methodname: 'format_mytopcoll_get_edit_indicator',
                   args: {
@@ -197,6 +188,7 @@ define([
                           indicator.dataset.indicator = data.types;
                           indicator.dataset.count = data.count;
                           indicator.querySelector('.indicator_counter').innerHTML = data.count;
+                          indicator.querySelector('.indicator_new').innerHTML = data.hasnewactivity;
                       } else {
                           Notification.exception();
                       }
@@ -288,29 +280,19 @@ define([
              * @param {object} data
              */
             function makeNewIndicator(data) {
-                var indicator = document.querySelector('.ind_item'),
+                var indicator = document.querySelector('.indicator'),
                     addIndicator = document.querySelector('.addIndicator'),
                     newIndicator = indicator.cloneNode(true);
                 newIndicator.querySelector('.indicator_name').innerHTML = data.name;
                 newIndicator.querySelector('.indicator_counter').innerHTML = data.count;
                 newIndicator.querySelector('.indicator_new').innerHTML = data.hasnewactivity;
-                newIndicator.dataset.id = data.id;
-                newIndicator.dataset.name = data.name;
-                newIndicator.dataset.indicator = data.types;
-                newIndicator.dataset.count = data.count;
+                newIndicator.querySelector('.dropdown-menu').dataset.id = data.id;
+                var inditem = newIndicator.querySelector('.ind_item');
+                inditem.dataset.id = data.id;
+                inditem.dataset.name = data.name;
+                inditem.dataset.indicator = data.types;
+                inditem.dataset.count = data.count;
                 indicationWrapper.insertBefore(newIndicator, addIndicator);
-            }
-
-            /**
-             * Update count indicator
-             * @param {string} count
-             */
-            function updateCount(count) {
-              var counter = 0;
-              types.forEach(function(type) {
-                  counter += Array.from(courseContent.querySelectorAll('li.activity.' + type));
-              });
-              return counter;
             }
 
         }
