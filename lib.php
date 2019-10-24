@@ -1507,7 +1507,7 @@ class format_mytopcoll extends format_base {
      * @return string
      */
     public function render_modchooser_template($courseid, $indicatorid) {
-        global $PAGE, $DB;
+        global $PAGE, $DB,$OUTPUT;
 
         $coursecontext = context_course::instance($courseid);
         $PAGE->set_context($coursecontext);
@@ -1525,9 +1525,9 @@ class format_mytopcoll extends format_base {
         unset(
             $modchooser->course,
             $modchooser->actionurl,
-            $modchooser->instructions
+            $modchooser->instructions,
+            $modchooser->description
         );
-
         $indicator = $DB->get_record('format_mytopcoll_indicator', array('id' => $indicatorid));
         $activitytype = $indicator ? json_decode($indicator->types) : array();
 
@@ -1535,6 +1535,11 @@ class format_mytopcoll extends format_base {
             $temparray=array();
             foreach($section->items as $key => $item) {
               $temparray[]=$section->items[$key];
+              $src = $OUTPUT->image_url('icon', $item->icon->component)->out();
+              $item->icon = array(
+                  'src' => $src,
+                  'alt' => $item->label,
+                );
               if (in_array($item->id, $activitytype)) {
                 $item->checked = true;
               }

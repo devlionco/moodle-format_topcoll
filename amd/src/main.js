@@ -47,19 +47,19 @@ define([
                 var target = e.target;
                 while (indicationWrapper.contains(target)) {
                   switch (target.dataset.handler) {
-                    case 'indicator':
+                    case 'showActivityPopup':
                         cloneNodesToModal(target);
                         break;
-                    case 'requestremoveindicator':
+                    case 'removeIndicator':
                         removeIndicator(target);
                         break;
-                    case 'geteditindicator':
+                    case 'getIndicatorData':
                         getIndicatorData(target);
                         break;
-                    case 'seteditindicator':
-                        setEditIndicator(target);
+                    case 'setEditIndicator':
+                        setEditIndicator();
                         break;
-                    case 'addindicator':
+                    case 'addIndicator':
                         addIndicator(target);
                         break;
                   }
@@ -81,7 +81,8 @@ define([
              * @param {node} target
              */
             function cloneNodesToModal(target) {
-                var modtypes = JSON.parse(target.dataset.indicator),
+                target = target.parentNode;
+                var modtypes = JSON.parse(target.dataset.types),
                     acitivityWrapper = document.createElement('ul');
 
                 var context = {
@@ -95,6 +96,14 @@ define([
                       modtypes.forEach(function(modtype) {
                           var activities = courseContent.querySelectorAll('li.activity.' + modtype);
                           activities.forEach(function(activity) {
+                            //TODO add inidcation for new acitvity 
+                              // if (target.dataset.new) {
+                              //     var id = activity.id.replace(/\D/gi, ''),
+                              //         newActivity = JSON.parse(target.dataset.new);
+                              //     if (newActivity.indexOf(+id) != -1) {
+                              //         activity.classList.add('hasnew');
+                              //     }
+                              // }
                               acitivityWrapper.appendChild(activity.cloneNode(true));
                           });
                       });
@@ -110,19 +119,19 @@ define([
              * @param {node} target
              */
             function removeIndicator(target) {
-              var indicatorid = target.parentNode.dataset.id;
+              while (!target.classList.contains('indicator')) {
+                target = target.parentNode;
+              }
+              var indicator = target;
+              var indicatorid = indicator.dataset.id;
+
               Ajax.call([{
                   methodname: 'format_mytopcoll_delete_indicator',
                   args: {
                       indicatorid: Number(indicatorid),
                   },
-                  done: function(result) {
-                      if (result) {
-                          var indicator = $(".ind_item[data-id='" + indicatorid + "']");
-                          indicator.parent().remove();
-                      } else {
-                          Notification.exception();
-                      }
+                  done: function() {
+                          indicator.remove();
                   },
                   fail: Notification.exception
               }]);
@@ -134,7 +143,7 @@ define([
              * @param {node} target
              */
             function getIndicatorData(target) {
-              target = target.previousSibling.previousSibling.previousSibling;
+              target = target.parentNode;
               Ajax.call([{
                   methodname: 'format_mytopcoll_get_edit_indicator',
                   args: {
@@ -147,13 +156,14 @@ define([
                       context.modaltitle = string[0];
                       context.indicatorname = target.dataset.name || string[1];
                       context.addnewindicator = target.dataset.id ? 0 : 1;
+
+                      Templates.render(TEMPLATE.modchooser, context)
+                        .done(function(html, js) {
+                            Templates.replaceNodeContents(modalContent, html, js);
+                            triggerModal.click();
+                        })
+                        .fail(Notification.exception);
                     });
-                    Templates.render(TEMPLATE.modchooser, context)
-                      .done(function(html, js) {
-                          Templates.replaceNodeContents(modalContent, html, js);
-                          triggerModal.click();
-                      })
-                      .fail(Notification.exception);
                   },
                   fail: Notification.exception
               }]);
@@ -161,8 +171,6 @@ define([
 
             /**
             * Edit current indicator
-            *
-            * @param {node} target
             */
             function setEditIndicator() {
               var form = courseContent.querySelector('#indchooserform'),
@@ -185,7 +193,7 @@ define([
                       if (responce) {
                           var data = JSON.parse(responce);
                           var indicator = indicationWrapper.querySelector('div[data-id="' + indicatorid + '"]');
-                          indicator.dataset.indicator = data.types;
+                          indicator.dataset.types = data.types;
                           indicator.dataset.count = data.count;
                           indicator.querySelector('.indicator_counter').innerHTML = data.count;
                           indicator.querySelector('.indicator_new').innerHTML = data.hasnewactivity;
@@ -280,19 +288,19 @@ define([
              * @param {object} data
              */
             function makeNewIndicator(data) {
-                var indicator = document.querySelector('.indicator'),
-                    addIndicator = document.querySelector('.addIndicator'),
-                    newIndicator = indicator.cloneNode(true);
-                newIndicator.querySelector('.indicator_name').innerHTML = data.name;
-                newIndicator.querySelector('.indicator_counter').innerHTML = data.count;
+                var example = document.querySelector('.indicator.example'),
+                    newIndicator = example.cloneNode(true);
+
+                newIndicator.dataset.id = data.id;
+                newIndicator.dataset.name = data.name;
+                newIndicator.dataset.types = data.types;
+                newIndicator.dataset.count = data.count;
                 newIndicator.querySelector('.indicator_new').innerHTML = data.hasnewactivity;
-                newIndicator.querySelector('.dropdown-menu').dataset.id = data.id;
-                var inditem = newIndicator.querySelector('.ind_item');
-                inditem.dataset.id = data.id;
-                inditem.dataset.name = data.name;
-                inditem.dataset.indicator = data.types;
-                inditem.dataset.count = data.count;
-                indicationWrapper.insertBefore(newIndicator, addIndicator);
+                newIndicator.querySelector('.indicator_counter').innerHTML = data.count;
+                newIndicator.querySelector('.indicator_name').innerHTML = data.name;
+                newIndicator.classList.remove('example', 'd-none');
+                newIndicator.classList.add('d-flex');
+                indicationWrapper.insertBefore(newIndicator, example);
             }
 
         }

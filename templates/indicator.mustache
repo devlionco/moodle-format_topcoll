@@ -1,0 +1,81 @@
+<div
+    class="d-flex m-5 justify-content-around flex-wrap indicator_wrap"
+    data-courseid="{{courseid}}"
+    >
+    {{#indicator}}
+    <div
+        class="indicator d-flex flex-column align-items-center position-relative mr-2 ml-2 mb-3"
+        data-id="{{id}}"
+        data-name="{{name}}"
+        data-types="{{types}}"
+        data-count="{{count}}"
+        data-new="{{hasnew}}"
+        >
+        <div
+            class="ind_item"
+            data-handler="showActivityPopup"
+            >
+            <span class="indicator_counter m-auto p-1 overflow-hidden text-white">{{count}}</span>
+        </div>
+        <div class="mt-2 indicator_name">{{name}}</div>
+        {{#hasnew}}<span class="indicator_new">{{#str}}new, format_mytopcoll{{/str}}</span>{{/hasnew}}
+
+        {{#editing}}
+          <icon class="icon fa fa-trash ind_del m-0" title="{{#str}}deleteindicator, format_mytopcoll{{/str}}" data-toggle="dropdown"></icon>
+          <icon class="icon fa fa-cog ind_edit m-0" title="{{#str}}editindicator, format_mytopcoll{{/str}}" data-handler="getIndicatorData"></icon>
+          <div
+              class="dropdown-menu pl-2 pr-2"
+              data-id="{{id}}">
+              <p class="">{{#str}}confirm_deletion, format_mytopcoll{{/str}}</p>
+              <button
+                  class="btn btn-outline-danger btn-sm mr-3"
+                  data-handler="removeIndicator"
+                  >
+                  {{#str}}deleteindicator, format_mytopcoll{{/str}}
+              </button>
+              <button
+                  class="btn btn-outline-secondary btn-sm"
+                  >
+                  {{#str}}cancel, format_mytopcoll{{/str}}
+              </button>
+          </div>
+        {{/editing}}
+    </div>
+  {{/indicator}}
+  <!-- example for cloning -->
+  <div class="indicator d-none flex-column align-items-center position-relative example">
+      <div class="ind_item" data-handler="showActivityPopup">
+          <span class="indicator_counter m-auto p-1 overflow-hidden text-white">count</span>
+      </div>
+      <div class="mt-2 indicator_name">name</div>
+      <span class="indicator_new d-none">new</span>
+        <icon class="icon fa fa-trash ind_del m-0" title="{{#str}}deleteindicator, format_mytopcoll{{/str}}" data-toggle="dropdown"></icon>
+        <icon class="icon fa fa-cog ind_edit m-0" title="{{#str}}editindicator, format_mytopcoll{{/str}}" data-handler="getIndicatorData"></icon>
+        <div class="dropdown-menu pl-2 pr-2">
+            <p class="">{{#str}}confirm_deletion, format_mytopcoll{{/str}}</p>
+            <button class="btn btn-outline-danger btn-sm mr-3" data-handler="removeIndicator">
+                {{#str}}deleteindicator, format_mytopcoll{{/str}}
+            </button>
+            <button class="btn btn-outline-secondary btn-sm">
+                {{#str}}cancel, format_mytopcoll{{/str}}
+            </button>
+        </div>
+  </div>
+<!-- example for cloning -->
+  {{#editing}}
+  <div class = 'addIndicator' data-handler = 'getIndicatorData'>
+    <span class = "m-auto">{{#str}}new, format_mytopcoll{{/str}}</span>
+  </div>
+  {{/editing}}
+
+  <div class="modal fade" id="modalIndicator" tabindex="-1" role="dialog" aria-labelledby="modalIndicator" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div id="modalContentIndicator" class="modal-content">
+          <!-- modal content -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Button trigger modal -->
+  <button id="triggerModalIndicator" type="button" class="sr-only" data-toggle="modal" data-target="#modalIndicator">Trigger btn</button>
+</div>

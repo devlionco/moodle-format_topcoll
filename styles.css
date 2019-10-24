@@ -816,10 +816,10 @@ body.jsenabled #toggle-all {
     box-sizing: content-box;
 }
 .addIndicator:hover {
-    animation: rotate .5s linear infinite;
+    animation: rotate .2s linear infinite;
 }
 .addIndicator:hover span {
-    animation: antirotate .5s linear infinite;
+    animation: antirotate .2s linear infinite;
 }
 .indicator_new {
     position: absolute;
@@ -838,6 +838,25 @@ body.jsenabled #toggle-all {
 }
 #modalIndicator li {
     margin-bottom: 1rem;
+}
+
+.editing #modalIndicator .activity > div {
+    display: flex;
+    width: 100%;
+    border: 1px solid #ddd;
+    padding-top: .5rem;
+    border-radius: 5px;
+}
+.editing #modalIndicator .activity .mod-indent ~ div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.editing #modalIndicator .activity .mod-indent-outer {
+    width: 100%;
+}
+.editing #modalIndicator .activity .editing_move {
+    display: none;
 }
 
 @keyframes rotate {

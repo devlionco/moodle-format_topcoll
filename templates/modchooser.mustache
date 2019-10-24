@@ -77,14 +77,12 @@
                           </label>
                       </div>
                       {{#items}}
-                        <div class="option">
-                          <label for="ind_{{id}}">
-                              <input type="checkbox" name="{{paramname}}" id = "ind_{{id}}" data-type="{{id}}" value="{{value}}" {{#checked}}checked{{/checked}}>
-                              <span class="modicon">
-                                  {{#icon}}
-                                      {{>core/pix_icon}}
-                                  {{/icon}}
-                              </span>
+                        <div class="option position-relative pl-4 mb-3">
+                          <input class = "custom-control-input" type="checkbox" name="{{paramname}}" id = "ind_{{id}}" data-type="{{id}}" value="{{value}}" {{#checked}}checked{{/checked}}>
+                          <label class = "custom-control-label" for="ind_{{id}}">
+                              {{#icon}}
+                                <image class = "iconlarge activityicon" src="{{src}}" alt="{{alt}}" aria-hidden="true" role="presentation">
+                              {{/icon}}
                               <span class="typename">{{label}}</span>
                           </label>
                         </div>
@@ -102,8 +100,8 @@
       type="button"
       class="btn btn-primary"
       data-dismiss="modal"
-      {{#addnewindicator}}data-handler = "addindicator">{{#str}} addnewindicator, format_mytopcoll {{/str}}{{/addnewindicator}}
-      {{^addnewindicator}}data-handler = "seteditindicator">{{#str}} ok, format_mytopcoll {{/str}}{{/addnewindicator}}
+      {{#addnewindicator}}data-handler = "addIndicator">{{#str}} addnewindicator, format_mytopcoll {{/str}}{{/addnewindicator}}
+      {{^addnewindicator}}data-handler = "setEditIndicator">{{#str}} ok, format_mytopcoll {{/str}}{{/addnewindicator}}
   </button>
   <button type="button" class="btn btn-secondary" data-dismiss="modal">{{#str}} close, format_mytopcoll {{/str}}</button>
 </div>
